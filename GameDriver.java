@@ -1,20 +1,20 @@
-package hssquares;
 import javax.swing.*;
 
 public class GameDriver {
 	   private static void createAndShowUI() {
-
 		      // create the model/view/control and connect them together
-		      Game model = new Game();
+		      GameModel model = new GameModel();
 		      GameView view = new GameView(model);
 		      GameControl control = new GameControl(model);
+			  GameMenu menu = new GameMenu(control);
 		      view.setGuiControl(control);
-
 		      // create the GUI to display the view
 		      JFrame frame = new JFrame("Hollywood Squares");
-		      frame.getContentPane().add(view); // add view here
+		      frame.getContentPane().add(view.getMainPanel()); // add view here
 		      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		      frame.pack();
+		      frame.setJMenuBar(menu.getMenuBar()); 
+				// frame.pack();
+			  frame.setSize(1109,910);
 		      frame.setLocationRelativeTo(null);
 		      frame.setVisible(true);
 		   }

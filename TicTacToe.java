@@ -1,18 +1,16 @@
-package hssquares;
-
 class TicTacToe{
-	private char[][] square = new char[3][3]; 
-	private char winner = '-';
+	private String[][] square = new String[3][3]; 
+	private String winner = "-";
 	private boolean gameOver = false;
 	public TicTacToe(){
 		for(int i=0;i<3;i++)
 			for(int j=0; j<3; j++)
-				square[i][j]='-';
+				square[i][j]="-";
 	}
 	
-	public boolean makeMove(int row, int col, char token, boolean wrongAnswer){
-		char buffer;
-		if(row>2||col>2||square[row][col]!='.')
+	public boolean makeMove(int row, int col, String token, boolean wrongAnswer){
+		String buffer;
+		if(row>2||col>2||square[row][col]!="-")
 			return false;
 		buffer=square[row][col];
 		square[row][col]=token;
@@ -24,7 +22,7 @@ class TicTacToe{
 			winner=token;
 		return true;
 	}
-	public boolean checkForWin(char x){
+	public boolean checkForWin(String x){
 		// Check to see if the player wins by having 5 on the board
 		for(int i=0, total=0;i<3;i++){
 			for(int j=0; j<3; j++){
@@ -50,7 +48,7 @@ class TicTacToe{
 		// Return false otherwise
 		return false;
 	}
-	public char getState(){
+	public String getState(){
 		return winner;
 	}
 	

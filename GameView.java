@@ -1,104 +1,115 @@
-package hssquares;
+import java.beans.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.*;
-
 import javax.swing.*;
 
-import swingmvc.MvcControl;
-import swingmvc.MvcModel;
 
-
-
-public class GameView extends JPanel{
-	private Square[][] square = new Square[3][3]; 
+public class GameView{
 	private GameControl control;
-	public GameView(Game model){
-		JPanel board = new JPanel();
-		   // add a property change listener to the model to listen and 
-	      // respond to changes in the model's state
-	      model.addPropertyChangeListener(new PropertyChangeListener() {
+	/* 2 dimensional array to deal with squares */
+	private Square [][] squares = new Square[3][3];	
+	private JPanel mainPanel = new JPanel();
+	private InfoBox infoBox = new InfoBox();
+	public GameView(GameModel model){
+		// add a property change listener to the model to listen and 
+	    // respond to changes in the model's state
+	    model.addPropertyChangeListener(new PropertyChangeListener() {
 	         public void propertyChange(PropertyChangeEvent evt) {
 	            // if the state change is the one we're interested in...
-	        	 if (evt.getPropertyName()==Game.SQUARE_ONE_NAME) {
-	               square[0][0].setToken('X');
-	            }
-	            else  if (evt.getPropertyName()==Game.SQUARE_TWO_NAME) {
-		               square[0][1].setToken('X');
-		            }
-	            else  if (evt.getPropertyName()==Game.SQUARE_THREE_NAME) {
-		               square[0][2].setToken('X');
-		            }
-	            else  if (evt.getPropertyName()==Game.SQUARE_FOUR_NAME) {
-		               square[1][0].setToken('X');
-		            }
-	            else  if (evt.getPropertyName()==Game.SQUARE_FIVE_NAME) {
-		               square[1][1].setToken('X');
-		            }
-	            else if (evt.getPropertyName()==Game.SQUARE_SIX_NAME) {
-		               square[1][2].setToken('X');
-	            }
-	            else if (evt.getPropertyName()==Game.SQUARE_SEVEN_NAME) {
-		               square[2][0].setToken('X');
-	            }
-	            else if (evt.getPropertyName()==Game.SQUARE_EIGHT_NAME) {
-		               square[2][1].setToken('X');
-	            }
-	            else if (evt.getPropertyName()==Game.SQUARE_NINE_NAME) {
-		               square[2][2].setToken('X');
-	            }
+	         	for(int i=0;i<3;i++){
+					for(int j=0;j<3;j++){ 
+						if (evt.getPropertyName().equals(GameModel.SQUARE[i][j])) {
+	               			System.out.println(evt.getPropertyName() + evt.getNewValue().toString());
+							squares[i][j].setState(evt.getNewValue().toString());
+							//stateField.setText(evt.getNewValue().toString()); // show it in the GUI
+	            		}	
+					}
+				}
+				if(evt.getPropertyName().equals(GameModel.WINNER)){
+					infoBox.winner("Winner: " + evt.getNewValue().toString());
+				}
 	         }
 	      });
-		board.setLayout(new GridLayout(3,3));
+		mainPanel.setLayout(new BorderLayout());
+		/* Setup Placeholders for the areas outside the grid */
+		mainPanel.add(new JLabel(new ImageIcon("resources/title.png")),BorderLayout.NORTH);
+		mainPanel.add(new JLabel(new ImageIcon("resources/left.png")),BorderLayout.EAST);
+		mainPanel.add(new JLabel(new ImageIcon("resources/right.png")),BorderLayout.WEST);
+		/*mainPanel.add(new JLabel(new ImageIcon("resources/bottom.png")),BorderLayout.SOUTH);*/
+	/*	JPanel bottom = new JPanel();
+		bottom.setLayout(new BorderLayout());
+		bottom.add(infoBox,BorderLayout.NORTH);
+		JPanel buttonPane = new JPanel();
+		buttonPane.setBackground(new Color(17,45,164));
+		buttonPane.add(new JButton("Agree"));
+		buttonPane.add(new JButton("Disagree"));
+		bottom.add(buttonPane,BorderLayout.SOUTH);*/
+		mainPanel.add(infoBox,BorderLayout.SOUTH);
+		/* Setup Grid */
+		JPanel grid = new JPanel();
+		grid.setLayout(new GridLayout(3,3));
+		grid.setBackground(Color.BLUE);
 		for(int i=0;i<3;i++){
-			for(int j=0; j<3; j++){
-				board.add(square[i][j]=new Square());
+			for(int j=0;j<3;j++){
+				squares[i][j]=new Square(i,j,model);
+				grid.add(squares[i][j]);
 			}
-		}
-		add(board);
-	     square[0][0].addActionListener(new ActionListener() {
-	         // all the buttons do is call methods of the control
-	         public void actionPerformed(ActionEvent e) {
-	            if (control != null) {
-	               control.buttonOneActionPerformed(e); // e.g., here
-	            }
-	         }
-	      });
+		}    	
+		mainPanel.add(grid,BorderLayout.CENTER);
 	}
-	public static void main(String args[]){
-		Game model = new Game();
-		GameView x = new GameView(model);
-		JFrame frame = new JFrame();  
-		frame.add(x);
-	    frame.setTitle("Exercise16_8");
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setSize(300, 300);
-	    frame.setLocationRelativeTo(null); // Center the frame
-	    frame.setVisible(true);
-		
-	}
-	  public void setGuiControl(GameControl control) {
-	      this.control = control;
-	   }
-	class Square extends JButton{
-		//State of the square
-		private char token='.';
-		Square(){
-			this.setText(""+token);
+	// set the control for this view
+   public void setGuiControl(GameControl control) {
+      this.control = control;
+   }
+
+   // get the main gui and its components for display
+   public JComponent getMainPanel() {
+      return mainPanel;
+   }
+ 
+	class InfoBox extends JPanel{
+		private JLabel q = new JLabel("<html>Question: What is the national anthem of Canada?<br>Jay-Z: Oh Canada</html>");
+		private JLabel a = new JLabel("<html>Jay-Z: Oh Canada</html>");
+		private JLabel winner = new JLabel(); 
+		private String win = "WINNER: _";
+		private Image castle;
+		private Dimension size;
+		public InfoBox(){
+			GraphicsEnvironment env =
+		      GraphicsEnvironment.getLocalGraphicsEnvironment();
+		    env.getAvailableFontFamilyNames();
+		    setFont(new Font("LCD PHONE", Font.PLAIN, 100));
+			/*q.setFont(new Font("sansserif", Font.BOLD, 15));
+			setLayout(new BorderLayout());
+			add(q,BorderLayout.CENTER);
+			q.setHorizontalAlignment( SwingConstants.CENTER );
+		/*	q.setFont(new Font("sansserif", Font.BOLD, 36));
+			a.setFont(new Font("sansserif", Font.BOLD, 36));
+			winner.setFont(new Font("sansserif",Font.BOLD, 50));
+			setLayout(new GridLayout(2,1));
+			add(q);
+			add(a);*/
+			size = new Dimension();
+		    castle = new ImageIcon(this.getClass().getResource("resources/bottom.png")).getImage();
+			size.width = castle.getWidth(null);
+			size.height = castle.getHeight(null);
+			setPreferredSize(size);
+			/*setPreferredSize(new Dimension(1109, 160));
+			setMinimumSize(new Dimension(1109, 160));
+			setMaximumSize(new Dimension(1109, 160));
+			setBackground(new Color(17,45,164));*/
 		}
-		//Set the token
-		public void setToken(char x){
-			token=x;
-			setText(""+x);
+		public void winner(String win){
+			//this.q.setText("<html> "+ win + "</html>");
+			this.win = win;
+			this.repaint();
 		}
-		//Reset the token to empty
-		public void resetToken(){
-			token='.';
-			setText("");
-		}
-		//Get the state of the token
-		public char getToken(){
-			return token;
-		}
+		public void paintComponent( Graphics g ){
+	    	super.paintComponent( g );
+	    	Graphics2D g2d = (Graphics2D) g;
+	  		g2d.drawImage(castle, 0, 0, null);
+			g2d.setPaint(Color.black);
+			g2d.drawString(win, 270, 150);
+	    }
 	}
 }

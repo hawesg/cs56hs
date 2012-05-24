@@ -1,7 +1,5 @@
-package hssquares;
-
 public enum SquareState {
-	NO_STATE("No State"), X("X"), O("O");
+	NO_STATE("_"), X("X"), O("O");
 	   private String text;
 
 	   private SquareState(String text) {
