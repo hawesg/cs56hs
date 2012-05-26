@@ -7,9 +7,7 @@ public class GameControl {
 	      this.model = model;
 	   }
 		
-	   // all this simplistic control does is change the state of the model, that's it
-	   public void buttonOneActionPerformed(ActionEvent ae) {
-	      /*model.setState(SquareState.X, 0,0);*/
+	   public void squareActionPerformed(ActionEvent ae) {
 	   }
 	   public void restart(ActionEvent ae){
 		model.restart();

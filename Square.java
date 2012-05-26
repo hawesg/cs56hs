@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 class Square extends JButton implements ActionListener {
-	private boolean clicked = false;
 	private GameModel model;
 	/* Store states of button */
 	private ImageIcon off;
@@ -19,10 +18,15 @@ class Square extends JButton implements ActionListener {
 		this.addActionListener(this);
 		this.model = model;
 		/* Load Button Images */
-		off = new ImageIcon("resources/Square_"+row+"_"+col+"_OFF.png");
+		/*off = new ImageIcon("resources/Square_"+row+"_"+col+"_OFF.png");
 		on = new ImageIcon("resources/Square_"+row+"_"+col+"_ON.png");
 		o = new ImageIcon("resources/Square_"+row+"_"+col+"_O.png");
-		x = new ImageIcon("resources/Square_"+row+"_"+col+"_X.png");
+		x = new ImageIcon("resources/Square_"+row+"_"+col+"_X.png");*/
+		off = new ImageIcon("resources/SQ_"+row+"_"+col+"_OFF.png");
+		on = new ImageIcon("resources/SQ_"+row+"_"+col+"_RO_OFF.png");
+		o = new ImageIcon("resources/SQ_"+row+"_"+col+"_OsOFF.png");
+		x = new ImageIcon("resources/SQ_"+row+"_"+col+"_XsOFF.png");
+		
 		this.setIcon(off);
 		// Add rollover icon;
 		this.setRolloverIcon(on);
@@ -42,20 +46,13 @@ class Square extends JButton implements ActionListener {
 		this.setIcon(off);
 		this.setRolloverIcon(on);
 	}
-	
-	public void actionPerformed(ActionEvent e) { 
-			//setRolloverIcon(null);
-			//setIcon(o);
-			//clicked=true;
-			model.makeMove(row,col);
-			//System.out.println(this.getHeight());
-			//model.setState(SquareState.X, row, col);
-		
-	
-	
-	
+	public int getRow(){
+		return row;
 	}
-	
-	
-	
+	public int getCol(){
+		return col;
+	}
+	public void actionPerformed(ActionEvent e) { 
+		model.makeMove(row,col);
+	}
 }

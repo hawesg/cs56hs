@@ -19,12 +19,4 @@ public class QuestionList {
 		for(int i=0;i<24;i++)
 			questions.add(new Question("question"+i, "correctAnswer" + i, "incorrectAnswer"+i));
 	}
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
