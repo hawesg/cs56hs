@@ -13,7 +13,7 @@ public class GameDriver {
 		frame.getContentPane().add(view.getMainPanel()); 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setJMenuBar(menu.getMenuBar()); 
-		frame.setSize(1109,910);
+		frame.setSize(945,700);
 		//frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);

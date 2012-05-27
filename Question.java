@@ -7,14 +7,13 @@ public class Question {
 		this.answer=answer;
 		this.correct=correct;
 	}
-	public boolean isCorrect(){
-		return correct;
+	public boolean checkForWrong(boolean x){
+		return x!=correct;
 	}
 	public String getQuestion(){ 
 		return question;
 	}
 	public String getAnswer(){
-		//String answer = (state==1)?correctAnswer:incorrectAnswer; //return the answer according to the state
 		return answer;
 	}
 }

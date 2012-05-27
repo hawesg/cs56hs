@@ -2,14 +2,21 @@ import java.beans.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
 public class InfoBox extends JPanel{
-	private JLabel winner = new JLabel(); 
-	private String win = "WINNER: _";
 	private Image background;
+	private ImageIcon agreeIcon = new ImageIcon(this.getClass().getResource("resources/agree_OFF.png"));
+	private ImageIcon agreeIconOn = new ImageIcon(this.getClass().getResource("resources/agree_ON.png"));
+	private ImageIcon disagreeIcon = new ImageIcon(this.getClass().getResource("resources/disagree_OFF.png"));
+	private ImageIcon disagreeIconOn = new ImageIcon("resources/disagree_ON.png");
 	private Dimension size;
-	private String question = "Q: What is the national anthem of canada?";
-	private String answer = "A: Oh Canada";
+	private String question = "";
+	private String answer = "";
+	private String dialogText = "";
+	private JButton agree = new JButton();
+	private JButton disagree = new JButton();
+	private JButton playAgain = new JButton("Yes");
+	private GameControl control;
+	//private GameControl control;
 	public InfoBox(){
 	    setFont(new Font("Dialog", Font.BOLD, 15));
 		size = new Dimension();
@@ -17,26 +24,77 @@ public class InfoBox extends JPanel{
 		size.width = background.getWidth(null);
 		size.height = background.getHeight(null);
 		setPreferredSize(size);
-		add(new JButton("Agree"));
-		add(new JButton("Disagree"));
+		agree.setIcon(agreeIcon);
+		disagree.setIcon(disagreeIcon);
+		agree.setRolloverIcon(agreeIconOn);
+		disagree.setRolloverIcon(disagreeIconOn);
+		agree.addActionListener(new ActionListener() {
+			// all the buttons do is call methods of the control
+		    public void actionPerformed(ActionEvent e) {
+		    	if (control != null) {
+		    		control.answerAgree(e); 
+		    	}
+			}
+		});
+		disagree.addActionListener(new ActionListener() {
+			// all the buttons do is call methods of the control
+		    public void actionPerformed(ActionEvent e) {
+		    	if (control != null) {
+		    		control.answerDisagree(e); 
+		    	}
+			}
+		});
+		playAgain.addActionListener(new ActionListener() {
+			// all the buttons do is call methods of the control
+		    public void actionPerformed(ActionEvent e) {
+		    	if (control != null) {
+		    		control.restart(e); 
+		    	}
+			}
+		});
 	}
-	public void winner(String win){
-		this.win = win;
-		this.repaint();
-	}
+	public void setGuiControl(GameControl control) {
+      	this.control = control;
+   	}
 	public void setQuestion(String question){
+		setFont(new Font("Dialog", Font.BOLD, 15));
 		this.question=question;
 	}
 	public void setAnswer(String answer){
+		add(agree);
+		add(disagree);
+		remove(playAgain);
 		this.answer=answer;
 		repaint();
+		revalidate();
 	}
+	public void setDialog(String dialog){
+		remove(agree);
+		remove(disagree);
+		remove(playAgain);
+		setFont(new Font("Dialog", Font.BOLD, 45));
+		this.answer=dialog;
+		this.question="";
+		repaint();
+		revalidate();
+	}
+	public void setWinner(String winner){
+		remove(agree);
+		remove(disagree);
+		add(playAgain);
+		setFont(new Font("Dialog", Font.BOLD, 35));
+		this.answer="DO YOU WANT TO PLAY AGAIN?";
+		this.question="";
+		repaint();
+		revalidate();
+	}
+	
 	public void paintComponent( Graphics g ){
 		super.paintComponent( g );
 	    Graphics2D g2d = (Graphics2D) g;
 	  	g2d.drawImage(background, 0, 0, null);
 		g2d.setPaint(Color.black);
-		g2d.drawString(question, 280, 100); //20
-		g2d.drawString(answer, 280, 140); //60
+		g2d.drawString(question, 160, 80); 
+		g2d.drawString(answer, 160, 110); 
 	}
 }
