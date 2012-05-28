@@ -17,6 +17,8 @@ public class GameModel {
 	public static final String O_SCORE = "O Score";
 	public static final String X_NAME = "X Name";
 	public static final String O_NAME = "O Name";
+	public static final String X_GENDER = "X Gender";
+	public static final String O_GENDER = "O Gender";
 	public static final String PLAYER_ONE = "Player 1";
 	public static final String PLAYER_TWO = "Player 2";
 	public static final String DIALOG = "Dialog";
@@ -30,8 +32,8 @@ public class GameModel {
 	private String dialog = "";
 	private int score = 0;
 	private State currentPlayer = State.X;
-	private Player player1 = new Player("Player 1", 'X', 0);
-	private Player player2 = new Player("Player 2", 'O', 1);
+	private Player player1 = new Player("Player 1", 'X', 'M');
+	private Player player2 = new Player("Player 2", 'O', 'F');
 	private State [][] square=new State[3][3];
 	private TicTacToe currentGame = new TicTacToe();
 	GameModel(){
@@ -41,6 +43,9 @@ public class GameModel {
 			}
 		}
 		initializeQuestions();
+	}
+	public boolean questionPending(){
+		return currentMove!=null;
 	}
 	private void changePlayer(){
 		State oldPlayer = currentPlayer;
@@ -63,10 +68,17 @@ public class GameModel {
 	   	pcSupport.firePropertyChange(SQUARE[row][col], oldState, state);
 	}
 	private void setWinner(State newWinner){
-		State oldWinner = winner;
-		int oldScore;
+		String titleText;
 		this.winner=newWinner;
-		pcSupport.firePropertyChange(WINNER, oldWinner, winner);
+		if(winner==State.X){
+			titleText="CONGRADULATIONS "+ player1.getName();
+		}else if(winner==State.O){
+			titleText="CONGRADULATIONS "+player2.getName();
+		}else{
+			titleText="Hollywood Squares";
+		}
+		int oldScore;
+		pcSupport.firePropertyChange(WINNER, "oldwinner", titleText);
 		if(winner==State.X){
 			oldScore = player1.getScore();
 			player1.incrementScore();
@@ -105,18 +117,26 @@ public class GameModel {
 			return true;
 	//	}		
 	}
-	public void setPlayer(String name, int playerImage, int playerNumber){
+	public void setPlayer(String name, char gender, int playerNumber){
 		if(playerNumber==1){
+			String oldName = player1.getName();
+			String oldGender = player1.getGender();
 			player1.setName(name);
-			player1.setPlayerImage(playerImage);
+			player1.setGender(gender);
+			pcSupport.firePropertyChange(X_NAME, oldName, player1.getName());
+			pcSupport.firePropertyChange(X_GENDER, oldGender, player1.getGender());			
 		}
 		else{
+			String oldName = player2.getName();
+			String oldGender = player2.getGender();
 			player2.setName(name);
-			player2.setPlayerImage(playerImage);
+			player2.setGender(gender);
+			pcSupport.firePropertyChange(O_NAME, oldName, player2.getName());
+			pcSupport.firePropertyChange(O_GENDER, oldGender, player2.getGender());	
 		}
 	}
-	public String getState(int row,int col){
-		return square[row][col].toString();
+	public State getState(int row,int col){
+		return square[row][col];
 	}
 	public void restart (){
 		currentGame=new TicTacToe();
@@ -135,7 +155,6 @@ public class GameModel {
 				}
 			}
 			setWinner(State.NO_STATE);
-			System.out.println(currentPlayer);
 		}	
 		public boolean makeMove(int row, int col, boolean wrongAnswer){
 			if(row>2||col>2||square[row][col]!=State.NO_STATE)

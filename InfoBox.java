@@ -24,6 +24,10 @@ public class InfoBox extends JPanel{
 		size.width = background.getWidth(null);
 		size.height = background.getHeight(null);
 		setPreferredSize(size);
+		agree.setBorder(BorderFactory.createEmptyBorder());
+		agree.setContentAreaFilled(false);
+		disagree.setBorder(BorderFactory.createEmptyBorder());
+		disagree.setContentAreaFilled(false);
 		agree.setIcon(agreeIcon);
 		disagree.setIcon(disagreeIcon);
 		agree.setRolloverIcon(agreeIconOn);
@@ -48,7 +52,9 @@ public class InfoBox extends JPanel{
 			// all the buttons do is call methods of the control
 		    public void actionPerformed(ActionEvent e) {
 		    	if (control != null) {
-		    		control.restart(e); 
+		    		question="";
+					answer="";
+					control.restart(e); 
 		    	}
 			}
 		});
@@ -78,7 +84,7 @@ public class InfoBox extends JPanel{
 		repaint();
 		revalidate();
 	}
-	public void setWinner(String winner){
+	public void setWinner(){
 		remove(agree);
 		remove(disagree);
 		add(playAgain);

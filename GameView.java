@@ -10,8 +10,8 @@ public class GameView{
 	private JPanel mainPanel = new JPanel();
 	private InfoBox infoBox;// = new InfoBox();
 	private JLabel title = new JLabel("Hollywood Squares");
-	private PlayerSquare player1 = new PlayerSquare("X");
-	private PlayerSquare player2 = new PlayerSquare("0");
+	private PlayerSquare player1 = new PlayerSquare("X","Player 1","M");
+	private PlayerSquare player2 = new PlayerSquare("O","Player 2","F");
 	public GameView(GameModel model){
 		infoBox=new InfoBox();
 		GraphicsEnvironment env =
@@ -29,7 +29,6 @@ public class GameView{
 		mainPanel.add(player1,BorderLayout.WEST);
 		mainPanel.add(player2,BorderLayout.EAST);
 		player1.setActive(true);
-		//mainPanel.add(new JLabel(new ImageIcon("resources/right.png")),BorderLayout.WEST);
 		mainPanel.add(infoBox,BorderLayout.SOUTH);
 		/* Setup Grid */
 		JPanel grid = new JPanel();
@@ -38,7 +37,8 @@ public class GameView{
 		// initialize each square add add them to the grid.
 		for(int i=0;i<3;i++){
 			for(int j=0;j<3;j++){
-				squares[i][j]=new Square(i,j,model);
+				squares[i][j]=new Square(i,j);
+				squares[i][j].addActionListener(new SquareListener(i,j));
 				grid.add(squares[i][j]);
 			}
 		}
@@ -58,6 +58,28 @@ public class GameView{
    	public JComponent getMainPanel() {
     	return mainPanel;
    	}
+	class SquareListener implements ActionListener{
+		int row;
+		int col;
+		public SquareListener(int row, int col){
+			this.row=row;
+			this.col=col;
+		}
+		public void actionPerformed(ActionEvent e) {
+			if(control != null){
+				if(control.checkIfSquareIsBlank(row,col)&&control.questionPending()==false){
+					squares[row][col].setOn();
+					for(int i=0;i<3;i++){
+						for(int j=0;j<3;j++){
+							squares[i][j].block();
+						}
+					}
+				  	control.squareActionPerformed(e,row,col); 
+				}	 
+			}    
+       	}
+	}
+	
    	class PropChangeListener implements PropertyChangeListener{
 		public void propertyChange(PropertyChangeEvent evt) {
 			//loop through to check each square
@@ -71,12 +93,12 @@ public class GameView{
 				}
 			}
 			if(evt.getPropertyName().equals(GameModel.WINNER)){
-				String buffer = (evt.getNewValue().toString().equals("_"))?"HOLLYWOOD SQUARES":("   Winner: " + evt.getNewValue().toString() + "   ");
+				String buffer = evt.getNewValue().toString();
 				title.setText(buffer);
 				if(buffer.equals("HOLLYWOOD SQUARES")){
 					infoBox.setDialog("");
 				}else{
-					infoBox.setWinner(buffer);
+					infoBox.setWinner();
 				}	
 			}
 			if(evt.getPropertyName().equals(GameModel.CURRENT_QUESTION)){
@@ -91,7 +113,24 @@ public class GameView{
 			if(evt.getPropertyName().equals(GameModel.O_SCORE)){
 				player2.setScore(evt.getNewValue().toString());
 			}
+			if(evt.getPropertyName().equals(GameModel.X_NAME)){
+				player1.setName(evt.getNewValue().toString());
+			}
+			if(evt.getPropertyName().equals(GameModel.O_NAME)){
+				player2.setName(evt.getNewValue().toString());
+			}
+			if(evt.getPropertyName().equals(GameModel.X_GENDER)){
+				player1.setGender(evt.getNewValue().toString());
+			}
+			if(evt.getPropertyName().equals(GameModel.O_GENDER)){
+				player2.setGender(evt.getNewValue().toString());
+			}
 			if(evt.getPropertyName().equals(GameModel.CURRENT_PLAYER)){
+				for(int i=0;i<3;i++){
+					for(int j=0;j<3;j++){
+						squares[i][j].unblock();
+					}
+				}
 				if(evt.getNewValue().toString().equals("X")){
 					player1.setActive(true);
 					player2.setActive(false);

@@ -8,14 +8,24 @@ public class GameControl {
 	}
 	public void answerAgree(ActionEvent ae){
 		model.answerQuestion(true);
-	}	
+	}
 	public void answerDisagree(ActionEvent ae){
 		model.answerQuestion(false);
 	}
+	public boolean checkIfSquareIsBlank(int row, int col){
+		return model.getState(row,col)==State.NO_STATE;
+	}
 		
-	public void squareActionPerformed(ActionEvent ae) {
+	public void squareActionPerformed(ActionEvent ae, int row, int col) {
+		model.clickSquare(row,col);
 	}
 	public void restart(ActionEvent ae){
 		model.restart();
 	} 
+	public void setPlayer(ActionEvent ae, String name, int playerNumber, char gender){
+		model.setPlayer(name,gender,playerNumber);
+	}
+	public boolean questionPending(){
+		return model.questionPending();
+	}
 }

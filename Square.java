@@ -2,19 +2,20 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
-class Square extends JButton implements ActionListener {
+class Square extends JButton{
 	private GameModel model;
 	/* Store states of button */
+	private boolean active=false;
 	private ImageIcon off;
 	private ImageIcon on;
 	private ImageIcon o;
 	private ImageIcon x;
 	private int row;
 	private int col;
-	public Square(int row, int col, GameModel model){
+	public Square(int row, int col){
 		this.row=row;
 		this.col=col;
-		this.addActionListener(this);
+	//	this.addActionListener(this);
 		this.model = model;
 		/* Load Button Images */
 		off = new ImageIcon("resources/small/SQ_"+row+"_"+col+"_OFF.png");
@@ -27,6 +28,7 @@ class Square extends JButton implements ActionListener {
 		setPreferredSize(new Dimension(150,150));
 	}
 	public void setState(String state){
+		active = true;
 		if(state=="X"){
 			setRolloverIcon(null);
 			setIcon(x);
@@ -38,9 +40,9 @@ class Square extends JButton implements ActionListener {
 		}
 	}
 	public void reset(){
+		active = false;
 		this.setIcon(off);
 		this.setRolloverIcon(on);
-		addActionListener(this);
 	}
 	public int getRow(){
 		return row;
@@ -48,9 +50,18 @@ class Square extends JButton implements ActionListener {
 	public int getCol(){
 		return col;
 	}
-	public void actionPerformed(ActionEvent e) { 
-		model.clickSquare(row,col);
+	public void setOn(){
 		this.setIcon(on);
-		removeActionListener(this);
+	}
+	public void block(){
+		this.setRolloverIcon(null);
+	}
+	public void unblock(){
+		if(active==false){
+			this.setRolloverIcon(on);
+		}
+	}
+	public  boolean is_Active(){
+		return active;
 	}
 }

@@ -14,7 +14,6 @@ public class GameDriver {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setJMenuBar(menu.getMenuBar()); 
 		frame.setSize(945,700);
-		//frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
