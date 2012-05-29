@@ -13,15 +13,16 @@ class Square extends JButton{
 	private int row;
 	private int col;
 	public Square(int row, int col){
+		setBorder(BorderFactory.createEmptyBorder());
+		setContentAreaFilled(false);
 		this.row=row;
 		this.col=col;
-	//	this.addActionListener(this);
 		this.model = model;
 		/* Load Button Images */
-		off = new ImageIcon("resources/small/SQ_"+row+"_"+col+"_OFF.png");
-		on = new ImageIcon("resources/small/SQ_"+row+"_"+col+"_RO_OFF.png");
-		o = new ImageIcon("resources/small/SQ_"+row+"_"+col+"_OsOFF.png");
-		x = new ImageIcon("resources/small/SQ_"+row+"_"+col+"_XsOFF.png");
+		off = new ImageIcon("resources/SQ_"+row+"_"+col+"_OFF.png");
+		on = new ImageIcon("resources/SQ_"+row+"_"+col+"_ON.png");
+		o = new ImageIcon("resources/SQ_"+row+"_"+col+"_O.png");
+		x = new ImageIcon("resources/SQ_"+row+"_"+col+"_X.png");
 		this.setIcon(off);
 		// Add rollover icon;
 		this.setRolloverIcon(on);

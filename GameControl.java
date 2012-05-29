@@ -21,7 +21,10 @@ public class GameControl {
 	}
 	public void restart(ActionEvent ae){
 		model.restart();
-	} 
+	}
+	public void playAgain(ActionEvent ae){
+//		model.playAgain();
+	}
 	public void setPlayer(ActionEvent ae, String name, int playerNumber, char gender){
 		model.setPlayer(name,gender,playerNumber);
 	}

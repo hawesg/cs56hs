@@ -8,7 +8,7 @@ public class PlayerSquare extends JPanel{
 	private Dimension size;
 	Color color;
 	private String playerName = "";
-	private String score = "Score: 0";
+	private String score = "$0";
 	private String playerToken; 
 	private String gender;
 	public PlayerSquare(String playerToken, String playerName, String gender){
@@ -64,7 +64,7 @@ public class PlayerSquare extends JPanel{
 		repaint();
 	}
 	public void setScore(String score){
-		this.score = "Score: "+score;
+		this.score = "$"+score;
 		repaint();
 	}
 	public void setGender(String gender){

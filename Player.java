@@ -15,7 +15,7 @@ public class Player {
 		this.name=name;
 	}
 	public void incrementScore(){
-		score++;
+		score=score+1000;
 	}
 	public int getScore(){
 		return score;

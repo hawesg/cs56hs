@@ -71,11 +71,11 @@ public class GameModel {
 		String titleText;
 		this.winner=newWinner;
 		if(winner==State.X){
-			titleText="CONGRADULATIONS "+ player1.getName();
+			titleText="CONGRATULATIONS "+ player1.getName();
 		}else if(winner==State.O){
-			titleText="CONGRADULATIONS "+player2.getName();
+			titleText="CONGRATULATIONS "+player2.getName();
 		}else{
-			titleText="Hollywood Squares";
+			titleText="HOLLYWOOD SQUARES";
 		}
 		int oldScore;
 		pcSupport.firePropertyChange(WINNER, "oldwinner", titleText);
@@ -146,7 +146,6 @@ public class GameModel {
     	pcSupport.addPropertyChangeListener(listener);
    	}
 	private class TicTacToe{
-		//private String winner = "-";
 		private boolean gameOver = false;
 		public TicTacToe(){
 			for(int i=0;i<3;i++){
@@ -162,11 +161,15 @@ public class GameModel {
 			currentMove=null;
 			if(wrongAnswer==false){
 				setState(currentPlayer,row,col);
-			} else if(wrongAnswer==true){// && checkForWin(oppositePlayer())==false){
+			} else {
 				setState(oppositePlayer(),row,col);
-			}
-			if ( checkForWin(currentPlayer) == true )
+				if(checkForWin(oppositePlayer())==true){
+					setState(State.NO_STATE,row,col);
+				}		
+			} 
+			if ( checkForWin(currentPlayer) == true ){
 				setWinner(currentPlayer);
+			}
 			changePlayer();
 			return true;
 		}

@@ -29,8 +29,9 @@ public class GameMenu {
 				};
 				JOptionPane.showMessageDialog(null, inputs, "Player 1 Setup", JOptionPane.PLAIN_MESSAGE);
             	if (control != null) {
-               			char gender = (sex.getSelectedItem().toString().equals("Female"))?'F':'M';
-	               		control.setPlayer(ae,name.getText(),1,gender);
+               		char gender = (sex.getSelectedItem().toString().equals("Female"))?'F':'M';
+	               	String trimmedName=name.getText().substring(0, 8);
+					control.setPlayer(ae,trimmedName,1,gender);
             	}
          	}
       	}));
@@ -48,10 +49,11 @@ public class GameMenu {
 				JOptionPane.showMessageDialog(null, inputs, "Player 2 Setup", JOptionPane.PLAIN_MESSAGE);
             	if (control != null) {
 					char gender = (sex.getSelectedItem().toString().equals("Female"))?'F':'M';
-               		control.setPlayer(ae,name.getText(),2,gender);
+					String trimmedName=name.getText().substring(0, 8);
+					control.setPlayer(ae,trimmedName,2,gender);
             	}
          	}
-      	}));
+      	}))
 		menu.addSeparator();
 		menu.add(new JMenuItem(new AbstractAction("Exit") {
          	public void actionPerformed(ActionEvent ae) {
@@ -61,7 +63,14 @@ public class GameMenu {
 		JMenu helpMenu = new JMenu("Help");
       	helpMenu.add(new JMenuItem(new AbstractAction("Rules") {
          	public void actionPerformed(ActionEvent ae) {
-				JOptionPane.showMessageDialog(new JFrame(),"Players take turns.  The first player to get three in a row or five total squares wins.  \nPlay:  The player whose turn it is chooses a square by clicking on it.   \nA question is asked the celebrity in that square and the celebrity answers.  \nThe player then either agrees or disagrees with the celebrity's answer by clicking on the appropriate button.  \nIf the player chooses correctly, they get the square.  \nIf they choose incorrectly, their opponent gets the square, unless it would result in three in a row for the opponent.  \nPlay then goes to the other player.",
+				JOptionPane.showMessageDialog(new JFrame(),
+				"Players take turns.  The first player to get three in a row or five total squares wins.  \n"
+				+"Play:  The player whose turn it is chooses a square by clicking on it.   \n"
+				+"A question is asked the celebrity in that square and the celebrity answers.  \n"
+				+"The player then either agrees or disagrees with the celebrity's answer by clicking on the appropriate button.  \n"
+				+"If the player chooses correctly, they get the square.  \n"
+				+"If they choose incorrectly, their opponent gets the square, unless it would result in three in a row for the opponent.  \n"
+				+"Play then goes to the other player.",
 				"Rules",
 			    JOptionPane.PLAIN_MESSAGE);
     	 }
@@ -69,7 +78,17 @@ public class GameMenu {
 		helpMenu.add(new JMenuItem(new AbstractAction("About") {
          	public void actionPerformed(ActionEvent ae) {
             	JOptionPane.showMessageDialog(new JFrame(),
-				    "Hollywood Squares \nCreated By: Garrett Hawes, Julian Gerard, Gerald Font, Tom Panda, Bill, Anna\n 2012","About",JOptionPane.QUESTION_MESSAGE);
+				    "Hollywood Squares \n"
+					+"CS56 Final Project\n"
+					+"Created By: \n"
+					+"Garrett Hawes \n"
+					+"Julian Gerard \n"
+					+"Gerald Fontejon \n"
+					+"Tom Panek \n"
+					+"Bill Hardesty \n"
+					+"Anna Lambrix\n"
+					+"\u00a92012 Gartron Design\n"
+					+"Santa Monica College","About",JOptionPane.PLAIN_MESSAGE);
          	}
       	}));
       	menuBar.add(menu);

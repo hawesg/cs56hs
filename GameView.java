@@ -96,7 +96,7 @@ public class GameView{
 				String buffer = evt.getNewValue().toString();
 				title.setText(buffer);
 				if(buffer.equals("HOLLYWOOD SQUARES")){
-					infoBox.setDialog("");
+					infoBox.clear();
 				}else{
 					infoBox.setWinner();
 				}	

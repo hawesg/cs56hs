@@ -18,6 +18,7 @@ public class InfoBox extends JPanel{
 	private GameControl control;
 	//private GameControl control;
 	public InfoBox(){
+		//setBorder(BorderFactory.createEtchedBorder(Color.black,Color.red));
 	    setFont(new Font("Dialog", Font.BOLD, 15));
 		size = new Dimension();
 		background = new ImageIcon(this.getClass().getResource("resources/bottom.png")).getImage();
@@ -80,6 +81,15 @@ public class InfoBox extends JPanel{
 		remove(playAgain);
 		setFont(new Font("Dialog", Font.BOLD, 45));
 		this.answer=dialog;
+		this.question="";
+		repaint();
+		revalidate();
+	}
+	public void clear(){
+		remove(agree);
+		remove(disagree);
+		remove(playAgain);
+		this.answer="";
 		this.question="";
 		repaint();
 		revalidate();
