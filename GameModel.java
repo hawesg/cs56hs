@@ -25,8 +25,11 @@ public class GameModel {
 	private PropertyChangeSupport pcSupport = new PropertyChangeSupport(this);
 	private State winner = State.NO_STATE;
 	//question stuff
+	private static final String[] QUESTIONS = {"Carl and the Passions changed band name to what", "How many rings on the Olympic flag", "Who has won the most Oscars", "If you had pogonophobia what would you be afraid of", "What in business terms is the IMF", "Ringo Star narrates which children's TV series", "Which country grows the most fruit", "In Casablanca what is the name of the nightclub", "How did Alfred Nobel make his money", "What does an alopecia sufferer lack", "Triskadeccaphobia is the fear of what", "Ictheologists study what", "What type of acid is used in car batteries", "What is the national flower of Japan", "What was the world's first high level programming language 1957 ", "Consumption was the former name of which disease", "Which American state is nicknamed The Diamond State", "Who wrote about Willie Wonka and the Chocolate Factory", "Who, at USA customs declared, nothing but my genius", "Who discovered blood circulation ", "Who wrote Brave New World (full name)", "What martial arts name means gentle way", "Duvali, Dushira and Holi are religious days in which religion", "In what industry did John Davidson Rockefeller get rich", "The Mau Mau were terrorists in which country late 50s early 60s", "If you suffer from epistaxis what is wrong", "What animals name translates as water horse", "Which two metals are alloyed to make pewter", "What does a polyandric women have more than one of", "Barry Allen was the alter ego of which DC comic superhero", "In Norse mythology what is the name of the ultimate battle", "What is the capitol of Morocco", "Linus Torwalds invented and wrote what", "Zambia and Zimbabwe used to be called what", "What is the staple food of one third of the world's population", "Ageusia is the loss of which sense", "Crazy Horse and Sitting Bull were born in which US state", "In 1901 who first transmitted radio signals across Atlantic", "What is the state capitol of New Jersey", "Who sold Louisiana to the USA in 1803", "What's missing from ale that's included in beer", "Who is the only American president elected unopposed", "What was the first credit card", "What did Britain swap Havana for with Spain in 1763", "What was Norman Bates hobby in Psycho", "In Kansas what can a waiter not do in a teacup (legally)", "Which country has the smallest birth rate"};
+	private static final String[] CORRECT_ANSWERS = { "Beach Boys", "5", "Walt Disney", "Beards", "International Monetary Fund", "Thomas the tank engine", "China", "Rick's", "He invented Dynamite", "Hair", "Number 13", "Fish", "Sulphuric", "Chrysanthemum", "IBM FORTRAN", "Tuberculosis", "Delaware", "Roald Dahl", "Oscar Wilde", "William Harvey", "Aldus Huxley", "Judo", "Hindu", "Oil", "Kenya", "Nosebleed", "Hippopotamus", "Tin and Lead", "Husband", "The Flash", "Ragnarok", "Rabat", "Linux computer operating system", "Rhodesia", "Rice", "Taste", "South Dakota", "Marconi", "Trenton", "Napoleon", "Hops", "George Washington", "Diners Club", "Florida", "Stuffing birds", "Serve wine", "Vatican City" };
+	private static final String[] INCORRECT_ANSWERS = { "Beatles", "7", "Jack Nicholson", "Spiders", "Imperial Metric Foundation", "Sesame Street", "The United States", "Casa Blanca", "He invented penicillin", "Vitamin C", "Snakes", "Insects", "Hydrochloric", "Japanese Tulip", "Basic", "Pneumonia", "Rhode Island", "Richard Stills", "Andy Warhol", "Richard Anderson", "Kurt Vonnegut", "Kung Fu", "Buddhism", "Steel", "Brazil", "Ear aches", "Camel", "Tin and Copper", "Ribs", "The Green Lantern", "Razternon", "Borran", "The C programming language", "Zambabwe", "Potatoes", "Smell", "North Dakota", "Alexandar Graham Bell", "Jersey City", "The King of Spain", "Wheat", "Thomas Jefferson", "BankAmericard", "The Philippines", "Rock Collecting", "Serve water", "Haiti" };
 	private ArrayList<Question> questions = new ArrayList<Question>();
-	private Question currentQuestion = new Question("","",false);
+	private Question currentQuestion = new Question("","","",0);
 	Random random = new Random();
 	private Move currentMove;
 	private String dialog = "";
@@ -56,9 +59,8 @@ public class GameModel {
 		return (currentPlayer==State.O)?State.X:State.O;
 	}
 	private void initializeQuestions(){
-		for(int i=0;i<24;i++){
-			boolean answerState = (random.nextInt(2)==1)?true:false;
-			questions.add(new Question("question"+i, "answer" + i + answerState, answerState));
+		for(int i=0;i<QUESTIONS.length;i++){
+			questions.add(new Question(QUESTIONS[i],CORRECT_ANSWERS[i],INCORRECT_ANSWERS[i],random.nextInt(2)));
 		}
 		Collections.shuffle(questions);
 	}

@@ -1,11 +1,13 @@
 public class Question {
 	private String question;
-	private String answer;
+	private String correctAnswer;
+	private String incorrectAnswer;
 	private boolean correct;
-	public Question(String question, String answer, boolean correct){
+	public Question(String question, String correctAnswer, String incorrectAnswer, int answerSeed){
 		this.question=question;
-		this.answer=answer;
-		this.correct=correct;
+		this.correctAnswer=correctAnswer+".";
+		this.incorrectAnswer=incorrectAnswer;
+		this.correct=(answerSeed==1)?true:false;
 	}
 	public boolean checkForWrong(boolean x){
 		return x!=correct;
@@ -14,6 +16,6 @@ public class Question {
 		return question;
 	}
 	public String getAnswer(){
-		return answer;
+		return (correct==true)?correctAnswer:incorrectAnswer;
 	}
 }
