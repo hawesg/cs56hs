@@ -42,7 +42,7 @@ public class GameView{
 				grid.add(squares[i][j]);
 			}
 		}
-		// add grid to main panel    	
+		// add grid to main panel    
 		mainPanel.add(grid,BorderLayout.CENTER);
 		// add a property change listener to the model to listen and 
 		// respond to changes in the model's state
@@ -53,10 +53,16 @@ public class GameView{
       	this.control = control;
 		infoBox.setGuiControl(control);
    	}
+	public static JComponent wrap(JComponent comp){
+	        JPanel panel = new JPanel();
+	        panel.add(comp);
+			panel.setBackground(new Color(17,45,164));
+	        return panel;
+	    }
 
    	// get the main gui and its components for display
    	public JComponent getMainPanel() {
-    	return mainPanel;
+    	return wrap(mainPanel);
    	}
 	class SquareListener implements ActionListener{
 		int row;

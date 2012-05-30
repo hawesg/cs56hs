@@ -53,7 +53,7 @@ public class GameMenu {
 					control.setPlayer(ae,trimmedName,2,gender);
             	}
          	}
-      	}))
+      	}));
 		menu.addSeparator();
 		menu.add(new JMenuItem(new AbstractAction("Exit") {
          	public void actionPerformed(ActionEvent ae) {

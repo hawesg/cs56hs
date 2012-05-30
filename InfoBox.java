@@ -8,6 +8,8 @@ public class InfoBox extends JPanel{
 	private ImageIcon agreeIconOn = new ImageIcon(this.getClass().getResource("resources/agree_ON.png"));
 	private ImageIcon disagreeIcon = new ImageIcon(this.getClass().getResource("resources/disagree_OFF.png"));
 	private ImageIcon disagreeIconOn = new ImageIcon("resources/disagree_ON.png");
+	private ImageIcon yesIcon = new ImageIcon(this.getClass().getResource("resources/yes_OFF.png"));
+	private ImageIcon yesIconOn = new ImageIcon(this.getClass().getResource("resources/yes_ON.png"));
 	private Dimension size;
 	private String question = "";
 	private String answer = "";
@@ -18,7 +20,7 @@ public class InfoBox extends JPanel{
 	private GameControl control;
 	//private GameControl control;
 	public InfoBox(){
-		//setBorder(BorderFactory.createEtchedBorder(Color.black,Color.red));
+		setBackground(new Color(17,45,164));
 	    setFont(new Font("Dialog", Font.BOLD, 15));
 		size = new Dimension();
 		background = new ImageIcon(this.getClass().getResource("resources/bottom.png")).getImage();
@@ -33,6 +35,10 @@ public class InfoBox extends JPanel{
 		disagree.setIcon(disagreeIcon);
 		agree.setRolloverIcon(agreeIconOn);
 		disagree.setRolloverIcon(disagreeIconOn);
+		playAgain.setIcon(yesIcon);
+		playAgain.setRolloverIcon(yesIconOn);
+		playAgain.setBorder(BorderFactory.createEmptyBorder());
+		playAgain.setContentAreaFilled(false);
 		agree.addActionListener(new ActionListener() {
 			// all the buttons do is call methods of the control
 		    public void actionPerformed(ActionEvent e) {
@@ -107,8 +113,9 @@ public class InfoBox extends JPanel{
 	
 	public void paintComponent( Graphics g ){
 		super.paintComponent( g );
+		int x = (getWidth()/2)-background.getWidth(null)/2; 
 	    Graphics2D g2d = (Graphics2D) g;
-	  	g2d.drawImage(background, 0, 0, null);
+	  	g2d.drawImage(background, x, 0, null);
 		g2d.setPaint(Color.black);
 		g2d.drawString(question, 160, 80); 
 		g2d.drawString(answer, 160, 110); 
