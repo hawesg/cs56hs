@@ -30,8 +30,11 @@ public class GameMenu {
 				JOptionPane.showMessageDialog(null, inputs, "Player 1 Setup", JOptionPane.PLAIN_MESSAGE);
             	if (control != null) {
                		char gender = (sex.getSelectedItem().toString().equals("Female"))?'F':'M';
-	               	String trimmedName=name.getText().substring(0, 8);
-					control.setPlayer(ae,trimmedName,1,gender);
+	               	String buffer=name.getText();
+					if(buffer.length()>=9){
+						buffer = buffer.substring(0, 8);
+					}
+					control.setPlayer(ae,buffer,1,gender);
             	}
          	}
       	}));
@@ -49,8 +52,11 @@ public class GameMenu {
 				JOptionPane.showMessageDialog(null, inputs, "Player 2 Setup", JOptionPane.PLAIN_MESSAGE);
             	if (control != null) {
 					char gender = (sex.getSelectedItem().toString().equals("Female"))?'F':'M';
-					String trimmedName=name.getText().substring(0, 8);
-					control.setPlayer(ae,trimmedName,2,gender);
+					String buffer=name.getText();
+					if(buffer.length()>=9){
+						buffer = buffer.substring(0, 8);
+					}
+					control.setPlayer(ae,buffer,2,gender);
             	}
          	}
       	}));

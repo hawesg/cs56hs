@@ -61,7 +61,7 @@ public class InfoBox extends JPanel{
 		    	if (control != null) {
 		    		question="";
 					answer="";
-					control.restart(e); 
+					control.playAgain(e); 
 		    	}
 			}
 		});

@@ -17,6 +17,9 @@ public class Player {
 	public void incrementScore(){
 		score=score+1000;
 	}
+	public void resetScore(){
+		score=0;
+	}
 	public int getScore(){
 		return score;
 	}
