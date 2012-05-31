@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class GameDriver {
 	private static void createAndShowUI() {
-		// create the model/view/control and connect them together
+		// crea te the model/view/control and connect them together
 		GameModel model = new GameModel();
 		GameView view = new GameView(model);
 		GameControl control = new GameControl(model);
