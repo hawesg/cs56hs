@@ -18,7 +18,8 @@ public class GameMenu {
       	}));
 		menu.add(new JMenuItem(new AbstractAction("Setup Player 1") {
          	public void actionPerformed(ActionEvent ae) {
-				JTextField name = new JTextField();
+				setPlayer(1);
+				/*JTextField name = new JTextField();
 				String[] choices = { "Male", "Female"};
 				JComboBox sex = new JComboBox(choices);
 				final JComponent[] inputs = new JComponent[] {
@@ -35,12 +36,12 @@ public class GameMenu {
 						buffer = buffer.substring(0, 8);
 					}
 					control.setPlayer(ae,buffer,1,gender);
-            	}
+            	}*/
          	}
       	}));
 		menu.add(new JMenuItem(new AbstractAction("Setup Player 2") {
          	public void actionPerformed(ActionEvent ae) {
-            	JTextField name = new JTextField();
+            	/*JTextField name = new JTextField();
 				String[] choices = { "Male", "Female"};
 				JComboBox sex = new JComboBox(choices);
 				final JComponent[] inputs = new JComponent[] {
@@ -57,7 +58,8 @@ public class GameMenu {
 						buffer = buffer.substring(0, 8);
 					}
 					control.setPlayer(ae,buffer,2,gender);
-            	}
+            	}*/
+				setPlayer(2);
          	}
       	}));
 		menu.addSeparator();
@@ -100,6 +102,26 @@ public class GameMenu {
       	menuBar.add(menu);
 		menuBar.add(helpMenu);
     }
+	public void setPlayer(int playerNumber){
+		JTextField name = new JTextField();
+		String[] choices = { "Male", "Female"};
+		JComboBox sex = new JComboBox(choices);
+		final JComponent[] inputs = new JComponent[] {                
+			new JLabel("Name"),
+			name,
+			new JLabel("Gender"),
+			sex
+		};
+		JOptionPane.showMessageDialog(null, inputs, "Player "+playerNumber+" Setup", JOptionPane.PLAIN_MESSAGE);
+        if (control != null) {
+        	char gender = (sex.getSelectedItem().toString().equals("Female"))?'F':'M';
+            String buffer=name.getText();
+			if(buffer.length()>=9){
+				buffer = buffer.substring(0, 8);
+			}
+			control.setPlayer(buffer,playerNumber,gender);
+        }
+	}
 
    	public JMenuBar getMenuBar() {
       	return menuBar;
