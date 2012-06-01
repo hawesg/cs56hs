@@ -27,7 +27,7 @@ public class GameModel {
 	//question stuff
 	private Random random = new Random();
 	private ArrayList<Question> questions = new ArrayList<Question>();
-	private Question currentQuestion = new Question("","","",0);
+	private Question currentQuestion = new Question("","","",true);
 	private Move currentMove;
 	private String dialog = "";
 	private int score = 0;
@@ -45,7 +45,7 @@ public class GameModel {
 		initializeQuestions();
 	}
 	public boolean questionPending(){
-		return currentMove!=null;
+		return currentMove!=null||winner!=State.NO_STATE;
 	}
 	private void changePlayer(){
 		State oldPlayer = currentPlayer;
@@ -56,11 +56,13 @@ public class GameModel {
 		return (currentPlayer==State.O)?State.X:State.O;
 	}
 	private void initializeQuestions(){
-		String[] questionArray = {"Carl and the Passions changed band name to what", "How many rings on the Olympic flag", "Who has won the most Oscars", "If you had pogonophobia what would you be afraid of", "What in business terms is the IMF", "Ringo Star narrates which children's TV series", "Which country grows the most fruit", "In Casablanca what is the name of the nightclub", "How did Alfred Nobel make his money", "What does an alopecia sufferer lack", "Triskadeccaphobia is the fear of what", "Ictheologists study what", "What type of acid is used in car batteries", "What is the national flower of Japan", "What was the world's first high level programming language 1957 ", "Consumption was the former name of which disease", "Which American state is nicknamed The Diamond State", "Who wrote about Willie Wonka and the Chocolate Factory", "Who, at USA customs declared, nothing but my genius", "Who discovered blood circulation ", "Who wrote Brave New World (full name)", "What martial arts name means gentle way", "Duvali, Dushira and Holi are religious days in which religion", "In what industry did John Davidson Rockefeller get rich", "The Mau Mau were terrorists in which country late 50s early 60s", "If you suffer from epistaxis what is wrong", "What animals name translates as water horse", "Which two metals are alloyed to make pewter", "What does a polyandric women have more than one of", "Barry Allen was the alter ego of which DC comic superhero", "In Norse mythology what is the name of the ultimate battle", "What is the capitol of Morocco", "Linus Torwalds invented and wrote what", "Zambia and Zimbabwe used to be called what", "What is the staple food of one third of the world's population", "Ageusia is the loss of which sense", "Crazy Horse and Sitting Bull were born in which US state", "In 1901 who first transmitted radio signals across Atlantic", "What is the state capitol of New Jersey", "Who sold Louisiana to the USA in 1803", "What's missing from ale that's included in beer", "Who is the only American president elected unopposed", "What was the first credit card", "What did Britain swap Havana for with Spain in 1763", "What was Norman Bates hobby in Psycho", "In Kansas what can a waiter not do in a teacup (legally)", "Which country has the smallest birth rate"};
-		String[] correctAnswerArray = { "Beach Boys", "5", "Walt Disney", "Beards", "International Monetary Fund", "Thomas the tank engine", "China", "Rick's", "He invented Dynamite", "Hair", "Number 13", "Fish", "Sulphuric", "Chrysanthemum", "IBM FORTRAN", "Tuberculosis", "Delaware", "Roald Dahl", "Oscar Wilde", "William Harvey", "Aldus Huxley", "Judo", "Hindu", "Oil", "Kenya", "Nosebleed", "Hippopotamus", "Tin and Lead", "Husband", "The Flash", "Ragnarok", "Rabat", "Linux computer operating system", "Rhodesia", "Rice", "Taste", "South Dakota", "Marconi", "Trenton", "Napoleon", "Hops", "George Washington", "Diners Club", "Florida", "Stuffing birds", "Serve wine", "Vatican City" };
-		String[] incorrectAnswerArray = { "Beatles", "7", "Jack Nicholson", "Spiders", "Imperial Metric Foundation", "Sesame Street", "The United States", "Casa Blanca", "He invented penicillin", "Vitamin C", "Snakes", "Insects", "Hydrochloric", "Japanese Tulip", "Basic", "Pneumonia", "Rhode Island", "Richard Stills", "Andy Warhol", "Richard Anderson", "Kurt Vonnegut", "Kung Fu", "Buddhism", "Steel", "Brazil", "Ear aches", "Camel", "Tin and Copper", "Ribs", "The Green Lantern", "Razternon", "Borran", "The C programming language", "Zambabwe", "Potatoes", "Smell", "North Dakota", "Alexandar Graham Bell", "Jersey City", "The King of Spain", "Wheat", "Thomas Jefferson", "BankAmericard", "The Philippines", "Rock Collecting", "Serve water", "Haiti" };
+		System.out.println("initialize questions");
+		String[] questionArray = {"What popular band was once named Carl and the Passions?","How many rings are there on the Olympic flag?","Who has won the most Oscars?","If you suffered from pogonophobia what would you be afraid of?","What in business terms is the IMF?","Ringo Starr narrates which children's TV series?","Which country grows the most fruit?","In Casablanca what is the name of the nightclub?","How did Alfred Nobel make his money?","What does an alopecia sufferer lack?","If you suffered from Triskaidekaphobia what would you be afraid of?","What would an ichthyologist study?","What type of acid is used in car batteries?","What is the national flower of Japan?","What was the world's first high-level programming language?","Consumption was the former name of which disease?","Which American state is nicknamed The Diamond State?","Who wrote Willie Wonka and the Chocolate Factory?","Who, at USA customs declared, \"Nothing but my genius\"?","Who discovered blood circulation?","Who wrote Brave New World?","What martial arts name means \"gentle way\"?","Duvali, Dushira and Holi are religious days in which religion?","In which industry did John Davidson Rockefeller get rich?","The Mau Mau were terrorists in which country in the late 50's and early 60's?","If you suffer from epistaxis what is wrong?","What animals name translates as \"water horse\"?","Which two metals are alloyed to make pewter?","A polyandric women has more than one...","Barry Allen was the alter ego of which DC comic superhero?","In Norse mythology what is the name of the ultimate battle?","What is the capital of Morocco?","What did Linus Torwalds invent and write?","What did Zambia and Zimbabwe used to be called?","What is the staple food of one third of the world's population?","Ageusia is the loss of which sense?","Crazy Horse and Sitting Bull were born in which US state?","In 1901 who first transmitted radio signals across the Atlantic?","What is the state capital of New Jersey?","Who sold Louisiana to the USA in 1803?","What's missing from ale that's included in beer?","Who is the only American president elected unopposed?","What was the first credit card?","What did Britain swap Havana for with Spain in 1763?","What was Norman Bates' hobby in Psycho?","In Kansas what can a waiter not legally do in a teacup?","Which country has the lowest birth rate?"};
+		String[] correctAnswerArray = { "Beach Boys","5","Walt Disney","Beards","International Monetary Fund","Thomas the tank engine","China","Rick's","He invented Dynamite","Hair","The Number 13","Fish","Sulphuric","Chrysanthemum","IBM FORTRAN","Tuberculosis","Delaware","Roald Dahl","Oscar Wilde","William Harvey","Aldous Huxley","Judo","Hindu","Oil","Kenya","Nosebleed","Hippopotamus","Tin and Lead","Husband","The Flash","Ragnarok","Rabat","Linux computer operating system","Rhodesia","Rice","Taste","South Dakota","Marconi","Trenton","Napoleon","Hops","George Washington","Diners Club","Florida","Stuffing birds","Serve wine","Vatican City" };
+		String[] incorrectAnswerArray = { "Beatles","7","Jack Nicholson","Spiders","International Monetary Foundation","Sesame Street","The United States","Casa Blanca","He invented penicillin","Vitamin C","Snakes","Insects","Hydrochloric","Japanese Tulip","Basic","Pneumonia","Rhode Island","Richard Stills","Andy Warhol","Richard Anderson","Kurt Vonnegut","Kung Fu","Buddhism","Steel","Brazil","Ear aches","Camel","Tin and Copper","Rib","The Green Lantern","Razternon","Borran","The C programming language","Zambabwe","Potatoes","Smell","North Dakota","Alexandar Graham Bell","Jersey City","The King of Spain","Wheat","Thomas Jefferson","Visa","The Philippines","Rock Collecting","Serve water","Haiti" };
 		for(int i=0;i<questionArray.length;i++){
-			questions.add(new Question(questionArray[i],correctAnswerArray[i],correctAnswerArray[i],random.nextInt(2)));
+			boolean correct=(random.nextInt(2)==1)?true:false;
+			questions.add(new Question(questionArray[i],correctAnswerArray[i],correctAnswerArray[i],correct));
 		}
 		Collections.shuffle(questions);
 	}
@@ -105,7 +107,7 @@ public class GameModel {
 		if(currentMove!=null){
 			return false;
 		}
-		//if((square[row][col]==State.NO_STATE) || (winner == State.NO_STATE) || (currentMove == null)){
+		
 			if(questions.isEmpty()){ 
 				initializeQuestions();
 			}
@@ -116,8 +118,7 @@ public class GameModel {
 			pcSupport.firePropertyChange(CURRENT_QUESTION, oldQuestion, currentQuestion.getQuestion());
 			pcSupport.firePropertyChange(CURRENT_ANSWER, oldAnswer, currentQuestion.getAnswer());
 			currentMove=new Move(row,col);
-			return true;
-	//	}		
+			return true;		
 	}
 	public void setPlayer(String name, char gender, int playerNumber){
 		if(playerNumber==1){
@@ -140,7 +141,25 @@ public class GameModel {
 	public State getState(int row,int col){
 		return square[row][col];
 	}
-	public void restart (){
+	public void restart(){
+		currentPlayer = State.X;
+		String oldName1 = player1.getName();
+		String oldGender1 = player1.getGender();
+		String oldName2 = player2.getName();
+		String oldGender2 = player2.getGender();
+		int oldScore1 = player1.getScore();
+		int oldScore2 = player2.getScore();
+		player1 = new Player("Player 1", 'X', 'M');
+		player2 = new Player("Player 2", 'O', 'F');
+		pcSupport.firePropertyChange(X_NAME, oldName1, player1.getName());
+		pcSupport.firePropertyChange(X_GENDER, oldGender1, player1.getGender());
+		pcSupport.firePropertyChange(O_NAME, oldName2, player2.getName());
+		pcSupport.firePropertyChange(O_GENDER, oldGender2, player2.getGender());
+		pcSupport.firePropertyChange(X_SCORE, oldScore1, player1.getScore());
+		pcSupport.firePropertyChange(O_SCORE, oldScore2, player2.getScore());
+		currentGame=new TicTacToe();
+	}
+	public void playAgain(){
 		currentGame=new TicTacToe();
 	}
    	// allow addition of listeners or observers
