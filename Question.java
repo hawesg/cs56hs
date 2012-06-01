@@ -3,11 +3,11 @@ public class Question {
 	private String correctAnswer;
 	private String incorrectAnswer;
 	private boolean correct;
-	public Question(String question, String correctAnswer, String incorrectAnswer, int answerSeed){
+	public Question(String question, String correctAnswer, String incorrectAnswer, boolean correct){
 		this.question=question;
 		this.correctAnswer=correctAnswer+".";
 		this.incorrectAnswer=incorrectAnswer;
-		this.correct=(answerSeed==1)?true:false;
+		this.correct=correct;
 	}
 	public boolean checkForWrong(boolean x){
 		return x!=correct;
