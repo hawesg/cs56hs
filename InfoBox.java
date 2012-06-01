@@ -113,11 +113,14 @@ public class InfoBox extends JPanel{
 	
 	public void paintComponent( Graphics g ){
 		super.paintComponent( g );
-		int x = (getWidth()/2)-background.getWidth(null)/2; 
-	    Graphics2D g2d = (Graphics2D) g;
-	  	g2d.drawImage(background, x, 0, null);
+		Graphics2D g2d = (Graphics2D) g;
+		int questionLength = (int) g2d.getFontMetrics().getStringBounds(question, g2d).getWidth();
+		int answerLength = (int) g2d.getFontMetrics().getStringBounds(answer, g2d).getWidth();
+		int xQuestion = background.getWidth(null)/2 - questionLength/2; 
+		int xAnswer = background.getWidth(null)/2 - answerLength/2; 
+	  	g2d.drawImage(background, 0, 0, null);
 		g2d.setPaint(Color.black);
-		g2d.drawString(question, 160, 80); 
-		g2d.drawString(answer, 160, 110); 
+		g2d.drawString(question, xQuestion, 80); //160
+		g2d.drawString(answer, xAnswer, 105); 
 	}
 }
