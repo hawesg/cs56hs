@@ -13,7 +13,7 @@ public class Question {
 		return x!=correct;
 	}
 	public String getQuestion(){ 
-		return question;
+		return question; //test
 	}
 	public String getAnswer(){
 		return (correct==true)?correctAnswer:incorrectAnswer;
