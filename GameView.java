@@ -8,7 +8,7 @@ public class GameView{
 	/* 2 dimensional array to deal with squares */
 	private Square [][] squares = new Square[3][3];	
 	private JPanel mainPanel = new JPanel();
-	private InfoBox infoBox;// = new InfoBox();
+	private InfoBox infoBox;
 	private JLabel title = new JLabel("Hollywood Squares");
 	private PlayerSquare player1 = new PlayerSquare("X","Player 1","M");
 	private PlayerSquare player2 = new PlayerSquare("O","Player 2","F");
@@ -55,7 +55,7 @@ public class GameView{
    	}
 	public static JComponent wrap(JComponent comp){
 	        JPanel panel = new JPanel();
-	        panel.add(comp);
+	        panel.add(comp,BorderLayout.CENTER);
 			panel.setBackground(new Color(17,45,164));
 	        return panel;
 	    }
@@ -93,7 +93,12 @@ public class GameView{
 				for(int j=0;j<3;j++){ 
 					if (evt.getPropertyName().equals(GameModel.SQUARE[i][j])) {
 						squares[i][j].setState(evt.getNewValue().toString());
-						String buffer = (evt.getNewValue().toString().equals("_"))?"":evt.getNewValue().toString()+" GETS THE SQUARE";
+						String buffer = (evt.getNewValue().toString().equals("_"))?"":" GETS THE SQUARE";
+						if(evt.getNewValue().toString().equals("X")){
+							buffer="X"+buffer;
+						}else if(evt.getNewValue().toString().equals("O")){
+							buffer="CIRCLE"+buffer;
+						}
 						infoBox.setDialog(buffer);
 	            	}	
 				}
