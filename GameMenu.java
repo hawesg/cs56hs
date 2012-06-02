@@ -6,8 +6,10 @@ public class GameMenu {
    	private GameControl control;
 
    	@SuppressWarnings("serial")
+
 	public GameMenu(GameControl cntrl) {
       	this.control = cntrl;
+
 		JMenu menu = new JMenu("Options");
       	menu.add(new JMenuItem(new AbstractAction("New Game") {
          	public void actionPerformed(ActionEvent ae) {
@@ -19,46 +21,10 @@ public class GameMenu {
 		menu.add(new JMenuItem(new AbstractAction("Setup Player 1") {
          	public void actionPerformed(ActionEvent ae) {
 				setPlayer(1);
-				/*JTextField name = new JTextField();
-				String[] choices = { "Male", "Female"};
-				JComboBox sex = new JComboBox(choices);
-				final JComponent[] inputs = new JComponent[] {
-				                new JLabel("Name"),
-				                name,
-				                new JLabel("Gender"),
-				                sex
-				};
-				JOptionPane.showMessageDialog(null, inputs, "Player 1 Setup", JOptionPane.PLAIN_MESSAGE);
-            	if (control != null) {
-               		char gender = (sex.getSelectedItem().toString().equals("Female"))?'F':'M';
-	               	String buffer=name.getText();
-					if(buffer.length()>=9){
-						buffer = buffer.substring(0, 8);
-					}
-					control.setPlayer(ae,buffer,1,gender);
-            	}*/
          	}
       	}));
 		menu.add(new JMenuItem(new AbstractAction("Setup Player 2") {
          	public void actionPerformed(ActionEvent ae) {
-            	/*JTextField name = new JTextField();
-				String[] choices = { "Male", "Female"};
-				JComboBox sex = new JComboBox(choices);
-				final JComponent[] inputs = new JComponent[] {
-				                new JLabel("Name"),
-				                name,
-				                new JLabel("Gender"),
-				                sex
-				};
-				JOptionPane.showMessageDialog(null, inputs, "Player 2 Setup", JOptionPane.PLAIN_MESSAGE);
-            	if (control != null) {
-					char gender = (sex.getSelectedItem().toString().equals("Female"))?'F':'M';
-					String buffer=name.getText();
-					if(buffer.length()>=9){
-						buffer = buffer.substring(0, 8);
-					}
-					control.setPlayer(ae,buffer,2,gender);
-            	}*/
 				setPlayer(2);
          	}
       	}));
@@ -68,19 +34,21 @@ public class GameMenu {
             	System.exit(0);
          	}
       	}));
+
 		JMenu helpMenu = new JMenu("Help");
       	helpMenu.add(new JMenuItem(new AbstractAction("Rules") {
          	public void actionPerformed(ActionEvent ae) {
 				JOptionPane.showMessageDialog(new JFrame(),
-				"Players take turns.  The first player to get three in a row or five total squares wins.  \n"
-				+"Play:  The player whose turn it is chooses a square by clicking on it.   \n"
-				+"A question is asked the celebrity in that square and the celebrity answers.  \n"
-				+"The player then either agrees or disagrees with the celebrity's answer by clicking on the appropriate button.  \n"
-				+"If the player chooses correctly, they get the square.  \n"
-				+"If they choose incorrectly, their opponent gets the square, unless it would result in three in a row for the opponent.  \n"
-				+"Play then goes to the other player.",
-				"Rules",
-			    JOptionPane.PLAIN_MESSAGE);
+					   "This game is played with two people. The players take turns. Upon his turn the player picks a square by clicking it.\n" 
+					+"A question appears in the area below the squares,  and the celebrity in the chosen square  \"answers\" the question.\n"
+					+"The player presses \"agree\" if he thinks the celebrities answer is correct, or \"disagree\" if he thinks it is incorrect.\n"
+					+"If the player chooses correctly, he gets the square, and his corresponding letter (X or O) appears on that square.\n" 
+					+"If he chooses incorrectly, his opponent gets the square, and his opponents letter (X or O) appears in that square. \n" 
+					+"A player cannot win the game due to his opponent being wrong, so in such a case the square would remain blank.\n" 
+					+"Once a player has answered, it is his opponent's turn to pick a square and decide whether the celebrity is correct. \n" 
+					+"The first player to get either three squares in a row, or five total squares wins the game and gets 1000 dollars.",
+					"Rules",
+			    	JOptionPane.PLAIN_MESSAGE);
     	 }
       	}));
 		helpMenu.add(new JMenuItem(new AbstractAction("About") {
@@ -99,9 +67,11 @@ public class GameMenu {
 					+"Santa Monica College","About",JOptionPane.PLAIN_MESSAGE);
          	}
       	}));
+
       	menuBar.add(menu);
 		menuBar.add(helpMenu);
     }
+
 	public void setPlayer(int playerNumber){
 		JTextField name = new JTextField();
 		String[] choices = { "Male", "Female"};

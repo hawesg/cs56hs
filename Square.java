@@ -12,6 +12,7 @@ class Square extends JButton{
 	private ImageIcon x;
 	private int row;
 	private int col;
+	
 	public Square(int row, int col){
 		setBorder(BorderFactory.createEmptyBorder());
 		setContentAreaFilled(false);
@@ -28,6 +29,7 @@ class Square extends JButton{
 		this.setRolloverIcon(on);
 		setPreferredSize(new Dimension(150,150));
 	}
+	
 	public void setState(String state){
 		active = true;
 		if(state=="X"){
@@ -40,29 +42,37 @@ class Square extends JButton{
 			reset();
 		}
 	}
+	
 	public void reset(){
 		active = false;
 		this.setIcon(off);
 		this.setRolloverIcon(on);
 	}
+	
 	public int getRow(){
 		return row;
 	}
+	
 	public int getCol(){
 		return col;
 	}
+	
 	public void setOn(){
 		this.setIcon(on);
 	}
+	
 	public void block(){
 		this.setRolloverIcon(null);
 	}
+	
 	public void unblock(){
 		if(active==false){
 			this.setRolloverIcon(on);
 		}
 	}
+	
 	public  boolean is_Active(){
 		return active;
 	}
+	
 }

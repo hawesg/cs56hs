@@ -12,12 +12,13 @@ public class GameView{
 	private JLabel title = new JLabel("Hollywood Squares");
 	private PlayerSquare player1 = new PlayerSquare("X","Player 1","M");
 	private PlayerSquare player2 = new PlayerSquare("O","Player 2","F");
+	
 	public GameView(GameModel model){
 		infoBox=new InfoBox();
 		GraphicsEnvironment env =
 		       GraphicsEnvironment.getLocalGraphicsEnvironment();
 		env.getAvailableFontFamilyNames();
-		title.setFont(new Font("LED BOARD REVERSED", Font.PLAIN, 30));
+		title.setFont(new Font("LED BOARD REVERSED", Font.PLAIN, 40));
 		mainPanel.setBackground(new Color(17,45,164));
 		title.setForeground(Color.white);
 		JPanel header = new JPanel();
@@ -48,22 +49,25 @@ public class GameView{
 		// respond to changes in the model's state
 		model.addPropertyChangeListener(new PropChangeListener());
 	}
+	
 	// set the control for this view
    	public void setGuiControl(GameControl control) {
       	this.control = control;
 		infoBox.setGuiControl(control);
    	}
+
 	public static JComponent wrap(JComponent comp){
 	        JPanel panel = new JPanel();
 	        panel.add(comp,BorderLayout.CENTER);
 			panel.setBackground(new Color(17,45,164));
 	        return panel;
-	    }
+	}
 
    	// get the main gui and its components for display
    	public JComponent getMainPanel() {
     	return wrap(mainPanel);
    	}
+
 	class SquareListener implements ActionListener{
 		int row;
 		int col;

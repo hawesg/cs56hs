@@ -11,6 +11,7 @@ public class PlayerSquare extends JPanel{
 	private String score = "$0";
 	private String playerToken; 
 	private String gender;
+	
 	public PlayerSquare(String playerToken, String playerName, String gender){
 		color = (playerToken.equals("O"))?new Color(255, 0, 255):Color.orange;
 		this.playerToken = playerToken;
@@ -27,11 +28,13 @@ public class PlayerSquare extends JPanel{
 		setPreferredSize(size);
 		setBackground(new Color(17,45,164));
 	}
+	
 	private void loadImages(){
 			background = new ImageIcon(this.getClass().getResource("resources/PL_BK.png")).getImage();
 			avitar = new ImageIcon(this.getClass().getResource("resources/PL_"+gender+".png")).getImage();
 			avitarOn = new ImageIcon(this.getClass().getResource("resources/PL_"+gender+"_"+playerToken+".png")).getImage();
 	}
+	
 	public static void main(String [] args){
 		JFrame frame = new JFrame("Hollywood Squares");
 		frame.getContentPane().add(new PlayerSquare("X","Player 1","M")); 
@@ -40,10 +43,12 @@ public class PlayerSquare extends JPanel{
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}	
+	
 	public void setActive(boolean active){
 		this.active=active;
 		repaint();
 	}
+	
 	public void paintComponent( Graphics g ){
 		super.paintComponent( g );
 	    Graphics2D g2d = (Graphics2D) g;
@@ -59,14 +64,17 @@ public class PlayerSquare extends JPanel{
 		g2d.drawString(score, 37, 289);
 		g2d.drawString(playerName, 37, 339);
 	}
+	
 	public void setName(String name){
 		this.playerName=name;
 		repaint();
 	}
+	
 	public void setScore(String score){
 		this.score = "$"+score;
 		repaint();
 	}
+	
 	public void setGender(String gender){
 		this.gender=gender;
 		loadImages();

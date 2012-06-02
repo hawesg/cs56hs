@@ -13,12 +13,11 @@ public class InfoBox extends JPanel{
 	private Dimension size;
 	private String question = "";
 	private String answer = "";
-	private String dialogText = "";
 	private JButton agree = new JButton();
 	private JButton disagree = new JButton();
-	private JButton playAgain = new JButton("Yes");
+	private JButton playAgain = new JButton();
 	private GameControl control;
-	//private GameControl control;
+	
 	public InfoBox(){
 		setBackground(new Color(17,45,164));
 	    setFont(new Font("Dialog", Font.BOLD, 15));
@@ -43,7 +42,7 @@ public class InfoBox extends JPanel{
 			// all the buttons do is call methods of the control
 		    public void actionPerformed(ActionEvent e) {
 		    	if (control != null) {
-		    		control.answerAgree(e); 
+		    		control.answer(e,true); 
 		    	}
 			}
 		});
@@ -51,7 +50,7 @@ public class InfoBox extends JPanel{
 			// all the buttons do is call methods of the control
 		    public void actionPerformed(ActionEvent e) {
 		    	if (control != null) {
-		    		control.answerDisagree(e); 
+		    		control.answer(e,false); 
 		    	}
 			}
 		});
@@ -66,13 +65,16 @@ public class InfoBox extends JPanel{
 			}
 		});
 	}
+	
 	public void setGuiControl(GameControl control) {
       	this.control = control;
    	}
+
 	public void setQuestion(String question){
 		setFont(new Font("Dialog", Font.BOLD, 15));
 		this.question=question;
 	}
+	
 	public void setAnswer(String answer){
 		add(agree);
 		add(disagree);
@@ -81,6 +83,7 @@ public class InfoBox extends JPanel{
 		repaint();
 		revalidate();
 	}
+	
 	public void setDialog(String dialog){
 		remove(agree);
 		remove(disagree);
@@ -91,6 +94,7 @@ public class InfoBox extends JPanel{
 		repaint();
 		revalidate();
 	}
+	
 	public void clear(){
 		remove(agree);
 		remove(disagree);
@@ -100,6 +104,7 @@ public class InfoBox extends JPanel{
 		repaint();
 		revalidate();
 	}
+	
 	public void setWinner(){
 		remove(agree);
 		remove(disagree);
