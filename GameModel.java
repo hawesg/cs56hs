@@ -83,9 +83,9 @@ public class GameModel {
 		String titleText;
 		this.winner=newWinner;
 		if(winner==State.X){
-			titleText="CONGRATULATIONS "+ player1.getName();
+			titleText="CONGRATS "+ player1.getName();
 		}else if(winner==State.O){
-			titleText="CONGRATULATIONS "+player2.getName();
+			titleText="CONGRATS "+player2.getName();
 		}else{
 			titleText="HOLLYWOOD SQUARES";
 		}

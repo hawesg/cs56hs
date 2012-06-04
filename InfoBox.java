@@ -65,7 +65,7 @@ public class InfoBox extends JPanel{
 			}
 		});
 	}
-	
+
 	public void setGuiControl(GameControl control) {
       	this.control = control;
    	}

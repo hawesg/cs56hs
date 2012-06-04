@@ -2,6 +2,7 @@ import java.beans.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.*;
 
 public class GameView{
 	private GameControl control;
@@ -10,15 +11,15 @@ public class GameView{
 	private JPanel mainPanel = new JPanel();
 	private InfoBox infoBox;
 	private JLabel title = new JLabel("Hollywood Squares");
-	private PlayerSquare player1 = new PlayerSquare("X","Player 1","M");
-	private PlayerSquare player2 = new PlayerSquare("O","Player 2","F");
+	private PlayerSquare player1 = new PlayerSquare("X","Player1","M");
+	private PlayerSquare player2 = new PlayerSquare("O","Player2","F");
 	
 	public GameView(GameModel model){
 		infoBox=new InfoBox();
 		GraphicsEnvironment env =
 		       GraphicsEnvironment.getLocalGraphicsEnvironment();
 		env.getAvailableFontFamilyNames();
-		title.setFont(new Font("LED BOARD REVERSED", Font.PLAIN, 40));
+		title.setFont(new Font("lcd phone", Font.PLAIN, 40));
 		mainPanel.setBackground(new Color(17,45,164));
 		title.setForeground(Color.white);
 		JPanel header = new JPanel();
@@ -56,16 +57,12 @@ public class GameView{
 		infoBox.setGuiControl(control);
    	}
 
-	public static JComponent wrap(JComponent comp){
-	        JPanel panel = new JPanel();
-	        panel.add(comp,BorderLayout.CENTER);
-			panel.setBackground(new Color(17,45,164));
-	        return panel;
-	}
-
    	// get the main gui and its components for display
    	public JComponent getMainPanel() {
-    	return wrap(mainPanel);
+		JPanel panel = new JPanel();
+		panel.add(mainPanel,BorderLayout.CENTER);
+		panel.setBackground(new Color(17,45,164));
+    	return panel;
    	}
 
 	class SquareListener implements ActionListener{

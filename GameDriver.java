@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.*;
+
 
 public class GameDriver {
 	
@@ -20,7 +22,6 @@ public class GameDriver {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-	
 	// call Swing code in a thread-safe manner per the tutorials
 	public static void main(String[] args) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
