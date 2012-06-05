@@ -5,7 +5,7 @@ import java.awt.*;
 public class GameDriver {
 	
 	private static void createAndShowUI() {
-		// create the model/view/control and connect them together
+		// crea te the model/view/control and connect them together
 		GameModel model = new GameModel();
 		GameView view = new GameView(model);
 		GameControl control = new GameControl(model);
@@ -18,7 +18,8 @@ public class GameDriver {
 		frame.getContentPane().add(view.getMainPanel()); 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setJMenuBar(menu.getMenuBar()); 
-		frame.setSize(945,700);
+		//frame.setSize(945,700);
+		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}

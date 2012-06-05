@@ -1,6 +1,8 @@
 import javax.swing.*; 
 import java.awt.*; 
 import java.io.*;
+import java.awt.RenderingHints;
+//http://www.javaworld.com/javaworld/jw-08-1998/jw-08-media.html
                
 public class PlayerSquare extends JPanel{
  	private Image background;
@@ -73,12 +75,18 @@ public class PlayerSquare extends JPanel{
 		super.paintComponent( g );
 	    Graphics2D g2d = (Graphics2D) g;
 		//g2d.addRenderingHints(renderHints);
+			// Anti Aliasing
+			RenderingHints rh = g2d.getRenderingHints(); 
+			rh.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g2d.setRenderingHints (rh);
 		if(active){
 			g2d.drawImage(avitarOn, 17, 0, null);
 		}else{
 			g2d.drawImage(avitar, 17, 0, null);
 		}
 		g2d.drawImage(background, 17, 184, null);
+		g2d.setPaint(Color.white);
+		g2d.drawString("PLAYER", 37, 236);
 		g2d.setPaint(color);
 		g2d.drawString(playerToken, 181, 236);
 		g2d.setPaint(Color.white);

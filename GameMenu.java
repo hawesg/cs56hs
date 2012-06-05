@@ -63,7 +63,7 @@ public class GameMenu {
 					+"Tom Panek \n"
 					+"Bill Hardesty \n"
 					+"Anna Lambrix\n"
-					+"\u00a92012\n"
+					+"\u00a92012 Gartron Design\n"
 					+"Santa Monica College","About",JOptionPane.PLAIN_MESSAGE);
          	}
       	}));
