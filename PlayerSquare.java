@@ -18,7 +18,7 @@ public class PlayerSquare extends JPanel{
 	
 	public PlayerSquare(String playerToken, String playerName, String gender){
 		loadFont();
-		color = (playerToken.equals("O"))?new Color(104, 77, 178):new Color(252, 100, 8);
+		color = (playerToken.equals("O"))?new Color(152,130,225):new Color(252, 100, 8);
 		this.playerToken = playerToken;
 		this.gender = gender;
 		this.playerName = playerName;
