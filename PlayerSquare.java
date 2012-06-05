@@ -25,7 +25,7 @@ public class PlayerSquare extends JPanel{
 		GraphicsEnvironment env =
 			 GraphicsEnvironment.getLocalGraphicsEnvironment();
 		env.getAvailableFontFamilyNames();
-		setFont(new Font("lcd phone", Font.PLAIN, 35));//25
+		setFont(new Font("lcd phone", Font.PLAIN, 35));//25//lcd phone
 		size = new Dimension();
 		loadImages();
 		size.width = background.getWidth(null)+35;
@@ -54,31 +54,24 @@ public class PlayerSquare extends JPanel{
 		     GraphicsEnvironment ge = 
 		         GraphicsEnvironment.getLocalGraphicsEnvironment();
 		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("resources/LCDPHONE.TTF")));
-		} catch (IOException ex) {
-		     ex.printStackTrace();
 		} catch (FontFormatException ex){
 			 ex.printStackTrace();
-		}
-	}
-	
+		} catch (IOException  ex){
+			ex.printStackTrace();
+		}	
+	}	
 	public void setActive(boolean active){
 		this.active=active;
 		repaint();
 	}
 	
 	public void paintComponent( Graphics g ){
-		/*RenderingHints renderHints =
-		new RenderingHints(RenderingHints.KEY_ANTIALIASING,
-		RenderingHints.VALUE_ANTIALIAS_ON);
-		renderHints.put(RenderingHints.KEY_RENDERING,
-		RenderingHints.VALUE_RENDER_QUALITY);*/
 		super.paintComponent( g );
 	    Graphics2D g2d = (Graphics2D) g;
-		//g2d.addRenderingHints(renderHints);
-			// Anti Aliasing
-			RenderingHints rh = g2d.getRenderingHints(); 
-			rh.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			g2d.setRenderingHints (rh);
+		// Anti Aliasing
+		RenderingHints rh = g2d.getRenderingHints(); 
+		rh.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setRenderingHints (rh);
 		if(active){
 			g2d.drawImage(avitarOn, 17, 0, null);
 		}else{

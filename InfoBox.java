@@ -117,8 +117,11 @@ public class InfoBox extends JPanel{
 	}
 	
 	public void paintComponent( Graphics g ){
+		RenderingHints renderHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		renderHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		super.paintComponent( g );
-		Graphics2D g2d = (Graphics2D) g;
+	    Graphics2D g2d = (Graphics2D) g;
+		g2d.addRenderingHints(renderHints);
 		int questionLength = (int) g2d.getFontMetrics().getStringBounds(question, g2d).getWidth();
 		int answerLength = (int) g2d.getFontMetrics().getStringBounds(answer, g2d).getWidth();
 		int xQuestion = background.getWidth(null)/2 - questionLength/2; 
