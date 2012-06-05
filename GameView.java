@@ -10,7 +10,8 @@ public class GameView{
 	private Square [][] squares = new Square[3][3];	
 	private JPanel mainPanel = new JPanel();
 	private InfoBox infoBox;
-	private JLabel title = new JLabel("Hollywood Squares");
+	//private JLabel title = new JLabel("Hollywood Squares");
+	private Header title = new Header("HOLLYWOOD SQUARES");
 	private PlayerSquare player1 = new PlayerSquare("X","Player1","M");
 	private PlayerSquare player2 = new PlayerSquare("O","Player2","F");
 	
@@ -19,9 +20,9 @@ public class GameView{
 		GraphicsEnvironment env =
 		       GraphicsEnvironment.getLocalGraphicsEnvironment();
 		env.getAvailableFontFamilyNames();
-		title.setFont(new Font("lcd phone", Font.PLAIN, 40));
+		//title.setFont(new Font("lcd phone", Font.PLAIN, 40));
 		mainPanel.setBackground(new Color(17,45,164));
-		title.setForeground(Color.white);
+		//title.setForeground(Color.white);
 		JPanel header = new JPanel();
 		header.setBackground(new Color(17,45,164));
 		header.add(title);
