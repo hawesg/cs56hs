@@ -1,24 +1,32 @@
-========================
+------
 
-Hollywood Squares - CS 56 
-Spring 2012
+# Hollywood Squares - CS 56 
+## Spring 2012
+[Git Hub Repository](http://www.github.com/hawesg/cs56hs)
 
-========================
+------
+
+*Garrett Hawes*
+
+*Julian Gerard*
+
+*Gerald Fontejon*
+
+*Tom Panek*
+
+*Bill Hardesty*
+
+*Anna Lambrix* 
 
 
-*Garrett Hawes
-*Julian Gerard
-*Gerald Fontejon
-*Tom Panek
-*Bill Hardesty
-*Anna Lambrix
-
-
-
-Code can be found in the src sub directory
-
-Code documentation can be viewed at docs\index.html (this is generated JavaDocs, private methods and variables have been added and most methods have proper documentation)
-
-The desing documentation and UML can be found in the designdocs subdirectory
-
-Compiled code is in the classes directory and can be run with classes/java GameDriver
+### Directory Listing
+* classes - compiled code, GameDriver.class for main method
+    * resources - resources folder for images and font
+* src - .java source code
+    * resources - a copy of the resources folder 
+* requirements - design doc and UML
+* other -misc stuff from the design process 
+    * large - larger square images
+    * lit up - lit up square images for animation 
+    * screens - some mock up screen shots
+* docs - JavaDoc's for all the classes, [index.html](docs/index.html)
