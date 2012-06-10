@@ -29,4 +29,4 @@
     * large - larger square images
     * lit up - lit up square images for animation 
     * screens - some mock up screen shots
-* docs - JavaDoc's for all the classes, [index.html](docs/index.html)
+* docs - JavaDoc's for all the classes, index.html or online [here](http://cs56hs.us/docs/)
