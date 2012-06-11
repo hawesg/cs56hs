@@ -125,14 +125,14 @@ public class InfoBox extends JPanel{
 	*		@param dialog 							Dialog for display
 	*/
 	public void setDialog(String dialog){
-		remove(agree);
-		remove(disagree);
-		remove(playAgain);
-		setFont(new Font("Dialog", Font.BOLD, 45));
-		this.answer=dialog;
-		this.question="";
-		repaint();
-		revalidate();
+			remove(agree);
+			remove(disagree);
+			remove(playAgain);
+			setFont(new Font("Dialog", Font.BOLD, 45));
+			this.answer=dialog;
+			this.question="";
+			repaint();
+			revalidate();	
 	}
 	
 	/** 	

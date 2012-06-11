@@ -11,7 +11,7 @@ import java.util.Collections;
 *		@author Garrett Hawes
 */
 
-public class GameModel {
+public class GameModel implements Runnable{
 	//properties for broadcast
 	/** 2D array to hold the brodcast names for the squares */
 	public static final String [][] SQUARE = { {"Square00", "Square01", "Square02"},{"Square10", "Square11", "Square12"},{"Square20", "Square21", "Square22"}};
@@ -34,7 +34,9 @@ public class GameModel {
 	/** Bradcast property for player x's gender */																														
 	public static final String X_GENDER = "X Gender";	
 	/** Bradcast property for player o's gender */																												
-	public static final String O_GENDER = "O Gender";			
+	public static final String O_GENDER = "O Gender";
+	/** Bradcast property for dialog */																												
+	public static final String DIALOG = "Dialog";			
 	/** Property broadcast  */																										
 	private PropertyChangeSupport pcSupport = new PropertyChangeSupport(this);																							
 	
@@ -47,6 +49,8 @@ public class GameModel {
 	
 	/** The current winner of the game  */
 	private State winner = State.NO_STATE;	
+	/** Array list to hold the positions of the squares that contributed to a win */
+	ArrayList<Move> winningSquares = new ArrayList<Move>();
 	/** The current square that is waiting for an answer  */																															
 	private Move currentMove;
 	/** Current player  */																																			
@@ -59,7 +63,35 @@ public class GameModel {
 	private State [][] square=new State[3][3];	
 	/** The current tic tac toe game */																														
 	private TicTacToe currentGame = new TicTacToe();																													
-	
+
+	/** 	
+	*		The run class for the winning animation 
+	*/
+	public void run() {
+		while(winner!=State.NO_STATE){
+			for(int j=0;j<winningSquares.size();j++){
+					Move current = winningSquares.get(j);
+					int row = current.getRow();
+					int col = current.getCol();
+					if(square[row][col]==State.X){
+						setState(State.X_ON,row,col);
+					}else if(square[row][col]==State.X_ON){
+							setState(State.X,row,col);
+					}else if(square[row][col]==State.O){
+							setState(State.O_ON,row,col);
+					}else if(square[row][col]==State.O_ON){
+							setState(State.O,row,col);
+					}
+			}
+			try{
+				Thread.sleep(400);
+			}catch(InterruptedException e){
+				e.printStackTrace();
+			}	
+		}
+		return;
+	}
+
 	/** 	
 	*		Loop through square and assign an inital setting of NO_STATE and then initialize the questions
 	*/
@@ -87,6 +119,17 @@ public class GameModel {
 		State oldPlayer = currentPlayer;
 	   	currentPlayer = (currentPlayer==State.O)?State.X:State.O;
 	   	pcSupport.firePropertyChange(CURRENT_PLAYER, oldPlayer, currentPlayer);
+	}
+	
+	private void setDialog(State x){
+		//String buffer = (evt.getNewValue().toString().equals("_"))?"":" GETS THE SQUARE";
+		String dialog = null;
+		if(x==State.X){
+			dialog="X GETS THE SQUARE";
+		}else if(x==State.O){
+			dialog="CIRCLE GETS THE SQUARE";
+		}
+		pcSupport.firePropertyChange(DIALOG, null, dialog);
 	}
 	
 	/** 	
@@ -130,6 +173,8 @@ public class GameModel {
 	*/
 	private void setWinner(State newWinner){
 		String titleText;
+		Thread t = new Thread(this);
+		t.start();
 		this.winner=newWinner;
 		if(winner==State.X){
 			titleText="CONGRATS "+ player1.getName();
@@ -224,7 +269,7 @@ public class GameModel {
 	public State getState(int row,int col){
 		return square[row][col];
 	}
-	
+	 
 	/** 	
 	*		Restart the game from scratch, reset all the info and broadcast them to the view
 	*/
@@ -236,6 +281,7 @@ public class GameModel {
 		int oldScore1 = player1.getScore();
 		int oldScore2 = player2.getScore();
 		State oldPlayer = currentPlayer;
+		winningSquares.clear();
 	   	currentPlayer = State.X;
 		player1 = new Player("Player 1", 'X', 'M');
 		player2 = new Player("Player 2", 'O', 'F');
@@ -253,6 +299,7 @@ public class GameModel {
 	*		Play another game without changing the players
 	*/
 	public void playAgain(){
+		winningSquares.clear();
 		currentGame=new TicTacToe();
 	}
 	
@@ -296,11 +343,14 @@ public class GameModel {
 			currentMove=null;
 			if(wrongAnswer==false){
 				setState(currentPlayer,row,col);
+				setDialog(currentPlayer);
 			} else {
 				setState(oppositePlayer(),row,col);
 				if(checkForWin(oppositePlayer())==true){
 					setState(State.NO_STATE,row,col);
-				}		
+				}else{
+					setDialog(oppositePlayer());	
+				}	
 			} 
 			if ( checkForWin(currentPlayer) == true ){
 				setWinner(currentPlayer);
@@ -315,33 +365,51 @@ public class GameModel {
 		*/
 		public boolean checkForWin(State x){
 			// Check to see if the player wins by having 5 on the board
-			for(int i=0, total=0;i<3;i++){
+			int total=0;
+			for(int i=0;i<3;i++){
 				for(int j=0; j<3; j++){
 					if(square[i][j]==x){
 						total++;
-					}
-					if(total==5){
-						return true;
+						winningSquares.add(new Move(i,j));
 					}
 				}
+			}
+			if(total>=5){
+				return true;
+			}else{
+				winningSquares.clear();
 			}
 			// Check Across
 			for(int i=0;i<3;i++){	
 				if(square[i][0]==x && square[i][1]==x && square[i][2]==x){
+				//	setState((x==State.X)?State.X_ON:State.O_ON, i, 0);
+					//square[i][0]=(x==State.X)?State.X_On:State.O_ON;
+					winningSquares.add(new Move(i,0));
+					winningSquares.add(new Move(i,1));
+					winningSquares.add(new Move(i,2));
 					return true;
 				}
 			}
 			// Check Up and Down
 			for(int i=0;i<3;i++){
 				if(square[0][i]==x && square[1][i]==x && square[2][i]==x){
+					winningSquares.add(new Move(0,i));
+					winningSquares.add(new Move(1,i));
+					winningSquares.add(new Move(2,i));
 					return true;
 				}
 			}
 			// Check Diagonals
 			if(square[0][0]==x && square[1][1]==x && square[2][2]==x){
+				winningSquares.add(new Move(0,0));
+				winningSquares.add(new Move(1,1));
+				winningSquares.add(new Move(2,2));
 				return true;
 			}
 			if(square[2][0]==x && square[1][1]==x && square[0][2]==x){
+				winningSquares.add(new Move(2,0));
+				winningSquares.add(new Move(1,1));
+				winningSquares.add(new Move(0,2));
 				return true;
 			}
 			// Return false otherwise

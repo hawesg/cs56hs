@@ -3,7 +3,7 @@ import java.awt.*;
 
 /** 	
 *		Class - GameDriver
-*		This is the main class it s1imply sets up the model, view and controler & menu, places the view in a frame and then opens them in a thread safe manner.
+*		This is the main c1lass it s1imply sets up the model, view and controler & menu, places the view in a frame and then opens them in a thread safe manner.
 *		@author Garrett Hawes
 */
 

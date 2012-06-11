@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
+import java.util.*; 
 
 /** 	
 *		Class - GameView
@@ -139,13 +140,6 @@ public class GameView{
 				for(int j=0;j<3;j++){ 
 					if (evt.getPropertyName().equals(GameModel.SQUARE[i][j])) {
 						squares[i][j].setState(evt.getNewValue().toString());
-						String buffer = (evt.getNewValue().toString().equals("_"))?"":" GETS THE SQUARE";
-						if(evt.getNewValue().toString().equals("X")){
-							buffer="X"+buffer;
-						}else if(evt.getNewValue().toString().equals("O")){
-							buffer="CIRCLE"+buffer;
-						}
-						infoBox.setDialog(buffer);
 	            	}	
 				}
 			}
@@ -181,6 +175,9 @@ public class GameView{
 			}
 			if(evt.getPropertyName().equals(GameModel.O_GENDER)){
 				player2.setGender(evt.getNewValue().toString());
+			}
+			if(evt.getPropertyName().equals(GameModel.DIALOG)){
+				infoBox.setDialog(evt.getNewValue().toString());
 			}
 			if(evt.getPropertyName().equals(GameModel.CURRENT_PLAYER)){
 				for(int i=0;i<3;i++){

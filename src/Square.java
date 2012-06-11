@@ -9,13 +9,15 @@ import java.awt.*;
 *		@author Garrett Hawes
 */
 
-class Square extends JButton{
+class Square extends JButton {
 	/** Store states of button */
 	private boolean active=false;
 	private ImageIcon off;
 	private ImageIcon on;
 	private ImageIcon o;
 	private ImageIcon x;
+	private ImageIcon xOn;
+	private ImageIcon oOn;
 	private int row;
 	private int col;
 	
@@ -34,6 +36,8 @@ class Square extends JButton{
 		on = new ImageIcon("resources/SQ_"+row+"_"+col+"_ON.png");
 		o = new ImageIcon("resources/SQ_"+row+"_"+col+"_O.png");
 		x = new ImageIcon("resources/SQ_"+row+"_"+col+"_X.png");
+		oOn = new ImageIcon("resources/SQ_"+row+"_"+col+"_O_ON.png");
+		xOn = new ImageIcon("resources/SQ_"+row+"_"+col+"_X_ON.png");
 		this.setIcon(off);
 		/* Add rollover icon; */
 		this.setRolloverIcon(on);
@@ -52,6 +56,12 @@ class Square extends JButton{
 		}else if(state=="O"){
 			setRolloverIcon(null);
 			setIcon(o);
+		}else if(state=="O_ON"){
+			setRolloverIcon(null);
+			setIcon(oOn);
+		}else if(state=="X_ON"){
+				setRolloverIcon(null);
+				setIcon(xOn);
 		}else{
 			reset();
 		}

@@ -30,7 +30,7 @@ public class PlayerSquare extends JPanel{
 		GraphicsEnvironment env =
 			 GraphicsEnvironment.getLocalGraphicsEnvironment();
 		env.getAvailableFontFamilyNames();
-		setFont(new Font("lcd phone", Font.PLAIN, 35));//25//lcd phone
+		setFont(new Font("lcd phone", Font.PLAIN, 35));
 		size = new Dimension();
 		loadImages();
 		size.width = background.getWidth(null)+35;
