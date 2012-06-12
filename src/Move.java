@@ -33,6 +33,7 @@ public class Move{
 	public int getCol(){
 		return col;
 	}
+	
 	public String toString(){
 		return "Row: "+row+" Col: "+col+"\n";
 	}

@@ -50,16 +50,16 @@ class Square extends JButton {
 	*/
 	public void setState(String state){
 		active = true;
-		if(state=="X"){
+		if(state.equals("X")){
 			setRolloverIcon(null);
 			setIcon(x);
-		}else if(state=="O"){
+		}else if(state.equals("O")){
 			setRolloverIcon(null);
 			setIcon(o);
-		}else if(state=="O_ON"){
+		}else if(state.equals("O_ON")){
 			setRolloverIcon(null);
 			setIcon(oOn);
-		}else if(state=="X_ON"){
+		}else if(state.equals("X_ON")){
 				setRolloverIcon(null);
 				setIcon(xOn);
 		}else{

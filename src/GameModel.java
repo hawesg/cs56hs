@@ -68,26 +68,38 @@ public class GameModel implements Runnable{
 	*		The run class for the winning animation 
 	*/
 	public void run() {
-		while(winner!=State.NO_STATE){
-			for(int j=0;j<winningSquares.size();j++){
-					Move current = winningSquares.get(j);
-					int row = current.getRow();
-					int col = current.getCol();
-					if(square[row][col]==State.X){
-						setState(State.X_ON,row,col);
-					}else if(square[row][col]==State.X_ON){
-							setState(State.X,row,col);
-					}else if(square[row][col]==State.O){
-							setState(State.O_ON,row,col);
-					}else if(square[row][col]==State.O_ON){
-							setState(State.O,row,col);
+		try{
+			while(winner!=State.NO_STATE){
+				for(int i=0;i<9;i++){
+					for(int j=0;j<winningSquares.size();j++){
+						Move current = winningSquares.get(j);
+						int row = current.getRow();
+						int col = current.getCol();
+						switch (square[row][col]) {
+							case X:
+					    		setState(State.X_ON,row,col);
+				           		break;
+					    	case X_ON:
+					    		setState(State.X,row,col);
+								break;
+					   		case O:
+					   			setState(State.O_ON,row,col);
+					       		break;
+							case O_ON:
+								setState(State.O,row,col);
+						}					
+						if(i==0||i==1){
+							Thread.sleep(700);
+						}
 					}
-			}
-			try{
+					if(i!=0&&i!=1){
+						Thread.sleep(700);
+					}
+				}		
 				Thread.sleep(400);
-			}catch(InterruptedException e){
-				e.printStackTrace();
-			}	
+			}
+		}catch(InterruptedException e){
+			e.printStackTrace();
 		}
 		return;
 	}
@@ -121,13 +133,19 @@ public class GameModel implements Runnable{
 	   	pcSupport.firePropertyChange(CURRENT_PLAYER, oldPlayer, currentPlayer);
 	}
 	
+	/** 
+	*		Display either circle gets the square or x gets the square
+	*		@param x							The player who is given a square 							
+	*/
 	private void setDialog(State x){
-		//String buffer = (evt.getNewValue().toString().equals("_"))?"":" GETS THE SQUARE";
 		String dialog = null;
-		if(x==State.X){
-			dialog="X GETS THE SQUARE";
-		}else if(x==State.O){
-			dialog="CIRCLE GETS THE SQUARE";
+		switch(x){
+			case X: 
+				dialog="X GETS THE SQUARE";
+				break;
+			case O: 
+				dialog="CIRCLE GETS THE SQUARE";
+				break;
 		}
 		pcSupport.firePropertyChange(DIALOG, null, dialog);
 	}
@@ -173,8 +191,9 @@ public class GameModel implements Runnable{
 	*/
 	private void setWinner(State newWinner){
 		String titleText;
-		Thread t = new Thread(this);
-		t.start();
+		//Thread t = 
+		(new Thread(this)).start();
+		//t.start();
 		this.winner=newWinner;
 		if(winner==State.X){
 			titleText="CONGRATS "+ player1.getName();
